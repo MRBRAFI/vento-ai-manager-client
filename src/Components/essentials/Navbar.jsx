@@ -36,11 +36,11 @@ const Navbar = () => {
           <img
             src="https://i.ibb.co.com/DDGJHqN8/vento-removebg-preview.png"
             alt=""
-            className="w-30 bg-secondary rounded-xl"
+            className="w-30 dark:bg-secondary rounded-xl"
           />
         </div>
         <div>
-          <div className="md:flex hidden md:gap-5 gap-2 not-dark:text-white">
+          <div className="md:flex hidden md:gap-5 gap-2 not-dark:text-white ">
             <Link
               to={"/"}
               className="not-dark:text-primary bg-secondary rounded-xl text-black font-semibold md:px-5 md:py-2 py-1 px-3 text-xs md:text-base"

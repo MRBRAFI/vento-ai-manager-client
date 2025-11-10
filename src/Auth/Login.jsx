@@ -1,14 +1,15 @@
 import React, { use, useState } from "react";
 import { FaEye, FaEyeSlash, FaGoogle } from "react-icons/fa";
-import { Link } from "react-router";
+import { Link, useNavigate } from "react-router";
 import { AuthContext } from "../Provider/AuthProvider";
 import { toast } from "react-toastify";
 
 const LoginPage = () => {
-  const { user, setUser, userLogIn } = use(AuthContext);
+  const { user, setUser, userLogIn, googleSignIn } = use(AuthContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [toggle, setToggle] = useState(true);
+  const navigate = useNavigate();
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -22,9 +23,24 @@ const LoginPage = () => {
         const user = res.user;
         toast.success("You have logged in successfully");
         setUser(user);
+        navigate("/");
       })
       .catch(() => {
         toast.error("Unfortunately you were unable to log in");
+      });
+  };
+
+  const handleGoogleLogin = () => {
+    googleSignIn()
+      .then((res) => {
+        const user = res.user;
+        setUser(user);
+        navigate("/");
+        toast.success("You have successfully loged in");
+      })
+      .catch((iss) => {
+        console.log(iss);
+        toast.error("Oops! Login unsuccessful");
       });
   };
 
@@ -37,15 +53,13 @@ const LoginPage = () => {
         <form onSubmit={handleLogin} className="space-y-4">
           {/* Email Field */}
           <div>
-            <label
-              className="block mb-1 not-dark:text-primary dark:text-secondary"
-              htmlFor="email"
-            >
+            <label className="block mb-1 not-dark:text-primary dark:text-secondary">
               Email
             </label>
             <input
               id="email"
               type="email"
+              name="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               placeholder="Enter your email"
@@ -56,15 +70,13 @@ const LoginPage = () => {
 
           {/* Password Field */}
           <div className="relative">
-            <label
-              className="block mb-1 not-dark:text-primary dark:text-secondary"
-              htmlFor="password"
-            >
+            <label className="block mb-1 not-dark:text-primary dark:text-secondary">
               Password
             </label>
             <input
               id="password"
               type={toggle ? "password" : "text"}
+              name="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Enter your password"
@@ -106,7 +118,8 @@ const LoginPage = () => {
             Login
           </button>
           <button
-            type="submit"
+            type="button"
+            onClick={handleGoogleLogin}
             className="btn-primary w-full py-2 mt-2 font-semibold text-primary flex items-center justify-center gap-2"
           >
             <FaGoogle className="text-xl"></FaGoogle> Login with google

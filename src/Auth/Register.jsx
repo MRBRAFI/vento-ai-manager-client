@@ -1,13 +1,14 @@
 import React, { use, useState } from "react";
 import { Link, useNavigate } from "react-router";
 import { AuthContext } from "../Provider/AuthProvider";
-import { FaGoogle } from "react-icons/fa";
+import { FaEye, FaEyeSlash, FaGoogle } from "react-icons/fa";
 import { toast } from "react-toastify";
 
 const RegisterPage = () => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [photo, setPhoto] = useState("");
+  const [toggle, setToggle] = useState(true);
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
   const { createUser, setUser, googleSignIn } = use(AuthContext);
@@ -18,20 +19,40 @@ const RegisterPage = () => {
     const email = e.target.email.value;
     const photo = e.target.photo.value;
     const password = e.target.password.value;
+    const uppercase = /[A-Z]/;
+    const lowercase = /[a-z]/;
 
     console.log("Name:", name);
     console.log("Email:", email);
     console.log("Photo URL:", photo);
     console.log("Password:", password);
 
+    if (password.length < 6) {
+      toast.error("Password must be at least 6 characters long");
+      return;
+    }
+
+    if (!uppercase.test(password)) {
+      toast.error("Password must contain at least 1 uppercase letter");
+      return;
+    }
+
+    if (!lowercase.test(password)) {
+      toast.error("Password must contain at least 1 lowercase letter");
+      return;
+    }
+
     createUser(email, password)
       .then((result) => {
         const user = result.user;
         console.log(user);
+        toast.success("Sign-In successful");
         setUser(user);
+        navigate("/");
       })
       .catch((issue) => {
         console.log(issue);
+        toast.error("This user already exists! Please try logging in");
       });
   };
   const handleGoogleSignUp = () => {
@@ -109,7 +130,7 @@ const RegisterPage = () => {
           </div>
 
           {/* Password Field */}
-          <div>
+          <div className="relative">
             <label
               className="block mb-1 not-dark:text-primary dark:text-secondary"
               htmlFor="password"
@@ -118,13 +139,19 @@ const RegisterPage = () => {
             </label>
             <input
               id="password"
-              type="password"
+              type={toggle ? "password" : "text"}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               placeholder="Enter your password"
               className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
               required
             />
+            <div
+              onClick={() => setToggle(!toggle)}
+              className="absolute top-9.5 right-2 cursor-pointer rounded-full"
+            >
+              {toggle ? <FaEye></FaEye> : <FaEyeSlash></FaEyeSlash>}
+            </div>
           </div>
 
           {/* Already Have Account */}
@@ -145,7 +172,7 @@ const RegisterPage = () => {
             Register
           </button>
           <button
-            type="submit"
+            type="button"
             onClick={handleGoogleSignUp}
             className="btn-primary w-full py-2 mt-2 font-semibold text-primary flex items-center justify-center gap-2"
           >

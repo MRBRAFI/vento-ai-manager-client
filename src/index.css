@@ -1,5 +1,8 @@
 @import "tailwindcss";
 @plugin "daisyui";
+@import "swiper/css";
+@import "swiper/css/navigation";
+@import "swiper/css/pagination";
 
 /* Remove single light theme plugin — we’ll use CSS variables instead */
 
