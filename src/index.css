@@ -1,39 +1,88 @@
 @import "tailwindcss";
 @plugin "daisyui";
 
-:root {
-  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
-  color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424;
+/* Remove single light theme plugin — we’ll use CSS variables instead */
 
+/* Root variables (light mode by default) */
+:root {
+  /* Font & rendering */
+  font-family: system-ui, Avenir, Helvetica, Arial, sans-serif;
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+
+  /* Color variables */
+  --color-primary: #5d0e41;
+  --color-secondary: #fad712;
+  --color-base-200: #f5f0e3;
+  --color-base-300: #ffffff;
+  --color-text: #213547;
+  --color-background: #ffffff;
+
+  /* Gradient variables (optional, keeps same scheme) */
+  --gradient-angle: 135deg;
+  --gradient-start: var(--color-base-200);
+  --gradient-end: var(--color-base-300);
 }
 
+/* Dark mode: automatically applied if user prefers dark theme */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-primary: #5d0e41; /* keep same as light, if desired */
+    --color-secondary: #fad712; /* same as light */
+    --color-base-200: #242424; /* dark background tone */
+    --color-base-300: #2e2e2e; /* slightly lighter for contrast */
+    --color-text: rgba(255, 255, 255, 0.87);
+    --color-background: #242424;
+
+    /* Gradient for dark mode */
+    --gradient-start: var(--color-base-200);
+    --gradient-end: var(--color-base-300);
+  }
+}
+
+/* Body background and text */
+body {
+  background-color: var(--color-background);
+  color: var(--color-text);
+}
+
+/* Links hover */
+
+/* Buttons */
 button {
   border-radius: 8px;
-  border: 2px solid white;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
   font-family: inherit;
-  background-image: linear-gradient(to right, #ff3f7f, #5bbcff);
+  background-color: var(--color-secondary);
   cursor: pointer;
   transition: border-color 0.25s;
 }
 button:focus,
 button:focus-visible {
-  outline: 4px auto -webkit-focus-ring-color;
+  outline: 1px auto -webkit-focus-ring-color;
 }
 
-@media (prefers-color-scheme: light) {
-  :root {
-    color: #213547;
-    background-color: #ffffff;
-  }
-  a:hover {
-    color: #747bff;
-  }
+/* Utility classes using variables */
+.bg-base-200 {
+  background-color: var(--color-base-200);
+}
+.bg-base-300 {
+  background-color: var(--color-base-300);
+}
+.text-primary {
+  color: var(--color-primary);
+}
+.text-secondary {
+  color: var(--color-secondary);
+}
+
+/* Gradient background class */
+.bg-gradient {
+  background-image: linear-gradient(
+    var(--gradient-angle),
+    var(--gradient-start),
+    var(--gradient-end)
+  );
+  background-size: cover;
+  background-repeat: no-repeat;
 }
