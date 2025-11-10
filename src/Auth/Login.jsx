@@ -1,8 +1,11 @@
-import React, { useState } from "react";
-import { FaEye, FaEyeSlash } from "react-icons/fa";
+import React, { use, useState } from "react";
+import { FaEye, FaEyeSlash, FaGoogle } from "react-icons/fa";
 import { Link } from "react-router";
+import { AuthContext } from "../Provider/AuthProvider";
+import { toast } from "react-toastify";
 
 const LoginPage = () => {
+  const { user, setUser, userLogIn } = use(AuthContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [toggle, setToggle] = useState(true);
@@ -13,6 +16,16 @@ const LoginPage = () => {
     const password = e.target.password.value;
     console.log("Email:", email);
     console.log("Password:", password);
+
+    userLogIn(email, password)
+      .then((res) => {
+        const user = res.user;
+        toast.success("You have logged in successfully");
+        setUser(user);
+      })
+      .catch(() => {
+        toast.error("Unfortunately you were unable to log in");
+      });
   };
 
   return (
@@ -24,7 +37,10 @@ const LoginPage = () => {
         <form onSubmit={handleLogin} className="space-y-4">
           {/* Email Field */}
           <div>
-            <label className="block mb-1 text-text" htmlFor="email">
+            <label
+              className="block mb-1 not-dark:text-primary dark:text-secondary"
+              htmlFor="email"
+            >
               Email
             </label>
             <input
@@ -40,7 +56,10 @@ const LoginPage = () => {
 
           {/* Password Field */}
           <div className="relative">
-            <label className="block mb-1 text-text" htmlFor="password">
+            <label
+              className="block mb-1 not-dark:text-primary dark:text-secondary"
+              htmlFor="password"
+            >
               Password
             </label>
             <input
@@ -85,6 +104,12 @@ const LoginPage = () => {
             className="btn-primary w-full py-2 mt-2 font-semibold text-primary"
           >
             Login
+          </button>
+          <button
+            type="submit"
+            className="btn-primary w-full py-2 mt-2 font-semibold text-primary flex items-center justify-center gap-2"
+          >
+            <FaGoogle className="text-xl"></FaGoogle> Login with google
           </button>
         </form>
       </div>
