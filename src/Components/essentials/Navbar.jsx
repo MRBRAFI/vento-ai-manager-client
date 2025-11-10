@@ -14,15 +14,18 @@ const Navbar = () => {
         </div>
         <div>
           <div className="md:flex hidden md:gap-5 gap-2 not-dark:text-white">
-            <button className="not-dark:text-primary text-black font-semibold md:px-5 md:py-2 py-1 px-3 text-xs md:text-base">
+            <Link
+              to={"/"}
+              className="not-dark:text-primary bg-secondary rounded-xl text-black font-semibold md:px-5 md:py-2 py-1 px-3 text-xs md:text-base"
+            >
               Home
-            </button>
-            <button className="not-dark:text-primary text-black font-semibold md:px-5 md:py-2 py-1 px-3 text-xs md:text-base">
+            </Link>
+            <Link className="not-dark:text-primary bg-secondary rounded-xl text-black font-semibold md:px-5 md:py-2 py-1 px-3 text-xs md:text-base">
               View Models
-            </button>
-            <button className="not-dark:text-primary text-black font-semibold md:px-5 md:py-2 py-1 px-3 text-xs md:text-base">
+            </Link>
+            <Link className="not-dark:text-primary bg-secondary rounded-xl text-black font-semibold md:px-5 md:py-2 py-1 px-3 text-xs md:text-base">
               Add Model
-            </button>
+            </Link>
           </div>
           <div className="md:hidden flex ">
             <details className="dropdown">
