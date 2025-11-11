@@ -2,8 +2,6 @@ import React from "react";
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import AiModelCard from "./AiModelCard";
-// ✅ Import later when ready for animation
-// import { motion } from "framer-motion";
 
 const FeaturedAiModel = ({ data }) => {
   const firstThree = data.slice(0, 3);
@@ -16,10 +14,15 @@ const FeaturedAiModel = ({ data }) => {
       </h2>
       <Swiper
         modules={[Autoplay]}
-        autoplay={{ delay: 2500 }}
+        speed={35000}
+        autoplay={{
+          delay: 1,
+          disableOnInteraction: false,
+        }}
         loop={true}
         spaceBetween={20}
         slidesPerView={1}
+        freeMode={true}
         className="rounded-2xl h-50 flex items-center justify-center"
       >
         <SwiperSlide>

@@ -4,6 +4,8 @@ import HomePage from "../../Pages/Home-page/HomePage";
 import ErrorPage from "../../Pages/Error/ErrorPage";
 import LoginPage from "../../Auth/Login";
 import Register from "../../Auth/Register";
+import AddModelPage from "../../Pages/Models/AddModels";
+import PrivateRoute from "../../Provider/PrivateRoute";
 
 const router = createBrowserRouter([
   {
@@ -23,6 +25,14 @@ const router = createBrowserRouter([
       {
         path: "/register",
         element: <Register></Register>,
+      },
+      {
+        path: "/add_models",
+        element: (
+          <PrivateRoute>
+            <AddModelPage></AddModelPage>
+          </PrivateRoute>
+        ),
       },
     ],
   },

@@ -1,0 +1,145 @@
+import React, { useState } from "react";
+import { useNavigate } from "react-router";
+
+const AddModelPage = () => {
+  const navigate = useNavigate();
+
+  const [formData, setFormData] = useState({
+    name: "",
+    framework: "",
+    useCase: "",
+    dataset: "",
+    description: "",
+    image: "",
+  });
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    console.log(formData);
+
+    alert("✅ Model added successfully!");
+    navigate("/");
+  };
+
+  return (
+    <div className="min-h-screen flex items-center justify-center px-4">
+      <div className="bg-base-300 dark:bg-base-200 p-8 rounded-xl shadow-lg max-w-2xl w-full">
+        <h1 className="text-2xl md:text-3xl font-bold mb-6 not-dark:text-primary dark:text-secondary text-center">
+          Add New AI Model
+        </h1>
+
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <div>
+            <label className="block mb-1 text-text" htmlFor="name">
+              Model Name
+            </label>
+            <input
+              name="name"
+              id="name"
+              type="text"
+              value={formData.name}
+              onChange={handleChange}
+              placeholder="e.g. BERT, ResNet-50"
+              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+              required
+            />
+          </div>
+
+          <div>
+            <label className="block mb-1 text-text" htmlFor="framework">
+              Framework
+            </label>
+            <input
+              name="framework"
+              id="framework"
+              type="text"
+              value={formData.framework}
+              onChange={handleChange}
+              placeholder="TensorFlow, PyTorch…"
+              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+              required
+            />
+          </div>
+
+          <div>
+            <label className="block mb-1 text-text" htmlFor="useCase">
+              Use Case
+            </label>
+            <input
+              name="useCase"
+              id="useCase"
+              type="text"
+              value={formData.useCase}
+              onChange={handleChange}
+              placeholder="NLP, Computer Vision…"
+              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+              required
+            />
+          </div>
+
+          <div>
+            <label className="block mb-1 text-text" htmlFor="dataset">
+              Dataset Used
+            </label>
+            <input
+              name="dataset"
+              id="dataset"
+              type="text"
+              value={formData.dataset}
+              onChange={handleChange}
+              placeholder="ImageNet, COCO, Wikipedia…"
+              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+              required
+            />
+          </div>
+
+          <div>
+            <label className="block mb-1 text-text" htmlFor="description">
+              Description
+            </label>
+            <textarea
+              name="description"
+              id="description"
+              value={formData.description}
+              onChange={handleChange}
+              placeholder="Briefly describe the model…"
+              rows="3"
+              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+              required
+            ></textarea>
+          </div>
+
+          <div>
+            <label className="block mb-1 text-text" htmlFor="image">
+              Model Image (URL)
+            </label>
+            <input
+              name="image"
+              id="image"
+              type="text"
+              value={formData.image}
+              onChange={handleChange}
+              placeholder="Paste ImgBB link here"
+              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
+              required
+            />
+          </div>
+
+          <button
+            type="submit"
+            className="btn-primary w-full py-2 mt-4 font-semibold text-primary"
+          >
+            Add Model
+          </button>
+        </form>
+      </div>
+    </div>
+  );
+};
+
+export default AddModelPage;
