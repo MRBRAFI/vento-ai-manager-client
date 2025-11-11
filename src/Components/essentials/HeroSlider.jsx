@@ -8,7 +8,7 @@ const HeroSlider = () => {
       <Swiper
         modules={[Navigation, Pagination, Autoplay]}
         navigation
-        Pagination={{ clickable: true }}
+        pagination={{ clickable: true }}
         autoplay={{ delay: 2500 }}
         loop={true}
         spaceBetween={20}

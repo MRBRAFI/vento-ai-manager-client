@@ -6,6 +6,7 @@ import Swal from "sweetalert2";
 const Navbar = () => {
   const { user, userSignOut } = use(AuthContext);
   const logOutHandler = () => {
+    console.log(user);
     Swal.fire({
       title: "Are you sure?",
       text: "You want to log out",
@@ -18,7 +19,7 @@ const Navbar = () => {
       if (result.isConfirmed) {
         Swal.fire({
           title: "Logged out",
-          text: "You are successfully logged out",
+          text: "You have successfully logged out",
           icon: "success",
         });
         userSignOut()
@@ -43,14 +44,14 @@ const Navbar = () => {
           <div className="md:flex hidden md:gap-5 gap-2 not-dark:text-white ">
             <Link
               to={"/"}
-              className="not-dark:text-primary bg-secondary rounded-xl text-black font-semibold md:px-5 md:py-2 py-1 px-3 text-xs md:text-base"
+              className="not-dark:text-base-200 dark:text-primary dark:bg-secondary not-dark:bg-primary rounded-xl text-black font-semibold md:px-5 md:py-2 py-1 px-3 text-xs md:text-base"
             >
               Home
             </Link>
-            <Link className="not-dark:text-primary bg-secondary rounded-xl text-black font-semibold md:px-5 md:py-2 py-1 px-3 text-xs md:text-base">
+            <Link className="not-dark:text-base-200 dark:text-primary dark:bg-secondary not-dark:bg-primary rounded-xl text-black font-semibold md:px-5 md:py-2 py-1 px-3 text-xs md:text-base">
               View Models
             </Link>
-            <Link className="not-dark:text-primary bg-secondary rounded-xl text-black font-semibold md:px-5 md:py-2 py-1 px-3 text-xs md:text-base">
+            <Link className="not-dark:text-base-200 dark:text-primary dark:bg-secondary not-dark:bg-primary rounded-xl text-black font-semibold md:px-5 md:py-2 py-1 px-3 text-xs md:text-base">
               Add Model
             </Link>
           </div>
@@ -85,19 +86,27 @@ const Navbar = () => {
               <div
                 tabIndex={0}
                 role="button"
-                className="btn btn-ghost btn-circle avatar"
+                className="btn w-10 btn-ghost btn-circle avatar"
               >
                 <div className="w-10 rounded-full">
                   <img
-                    alt="Tailwind CSS Navbar component"
-                    src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp"
+                    src={
+                      user?.photoURL ||
+                      "https://images.unsplash.com/photo-1511367461989-f85a21fda167?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cHJvZmlsZXxlbnwwfHwwfHx8MA%3D%3D&fm=jpg&q=60&w=3000"
+                    }
                   />
                 </div>
               </div>
               <ul
                 tabIndex="-1"
-                className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow"
+                className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-65 p-2 shadow"
               >
+                <li className="dark:bg-secondary dark:text-primary not-dark:bg-primary not-dark:text-secondary rounded-2xl p-1">
+                  <p className="text-sm font-semibold">
+                    User : {user?.displayName || "Name"}
+                  </p>
+                  <p className="text-sm font-semibold">Email : {user.email}</p>
+                </li>
                 <li>
                   <a className="justify-between">
                     Profile
@@ -121,15 +130,9 @@ const Navbar = () => {
             <div className="flex flex-col md:flex-row lg:flex-row">
               <Link
                 to={"/login"}
-                className="not-dark:text-primary dark:text-secondary hover:bg-secondary hover:text-primary rounded-xl transition duration-300 mr-2 font-semibold md:px-5 md:py-2 py-1 px-3 text-xs md:text-base"
+                className="not-dark:text-primary dark:text-secondary hover:underline rounded-xl transition duration-300 mr-2 font-semibold md:px-5 md:py-2 py-1 px-3 text-xs md:text-base"
               >
                 Login
-              </Link>
-              <Link
-                to={"/register"}
-                className="not-dark:text-primary dark:text-secondary hover:bg-secondary hover:text-primary rounded-xl transition duration-300 font-semibold md:px-5 md:py-2 py-1 px-3 text-xs md:text-base"
-              >
-                Sign Up
               </Link>
             </div>
           )}

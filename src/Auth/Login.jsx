@@ -103,7 +103,7 @@ const LoginPage = () => {
               href="#"
               className="dark:text-secondary not-dark:text-primary text-sm"
             >
-              Already Have An Account?{" "}
+              Don't Have An Account?{" "}
               <Link to={"/register"} className=" hover:underline">
                 Register
               </Link>

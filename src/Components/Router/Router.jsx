@@ -14,6 +14,7 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <HomePage></HomePage>,
+        loader: () => fetch("http://localhost:3000/latest_models"),
       },
       {
         path: "/login",

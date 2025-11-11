@@ -3,7 +3,7 @@ import { createRoot } from "react-dom/client";
 import { RouterProvider } from "react-router/dom";
 import "./index.css";
 import router from "./Components/Router/Router";
-import AuthProvider from "./Provider/AuthProvider";
+import AuthProvider, { AuthContext } from "./Provider/AuthProvider";
 import { ToastContainer } from "react-toastify";
 
 createRoot(document.getElementById("root")).render(
