@@ -10,8 +10,6 @@ const ModelDetailsPage = () => {
   const userEmail = user.email;
   const creatorEmail = details.createdBy;
 
-  console.log(location);
-
   return (
     <div className="w-[50%] mx-auto min-h-screen my-16 flex flex-col gap-10">
       <div className="flex items-center justify-center">
@@ -52,6 +50,7 @@ const ModelDetailsPage = () => {
           {userEmail === creatorEmail ? (
             <div className="flex gap-5">
               <Link
+                state={location.pathname}
                 to={`/update_model/${details._id}`}
                 className="dark:bg-secondary dark:text-primary not-dark:bg-primary not-dark:text-base-300 font-semibold py-2 px-6 rounded-xl"
               >

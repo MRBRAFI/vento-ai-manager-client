@@ -1,9 +1,10 @@
 import React from "react";
-import { useLoaderData, useNavigate } from "react-router";
+import { useLoaderData, useLocation, useNavigate } from "react-router";
 import { toast } from "react-toastify";
 
 const UpdateModels = () => {
   const data = useLoaderData();
+  const location = useLocation();
   const navigate = useNavigate();
   const details = data.result;
   console.log(details);
@@ -33,7 +34,7 @@ const UpdateModels = () => {
       .then((data) => {
         console.log("data after adding", data);
         toast.success("Your data has been stored successfully");
-        navigate(`${details._id}`);
+        navigate(`${location.state ? location.state : "/"}`);
       })
       .catch((iss) => {
         console.log(iss);
