@@ -58,7 +58,7 @@ const AllModelsPage = () => {
 
         <div>
           <p className="not-dark:bg-base-200 not-dark:text-primary dark:bg-[#fad71215] dark:text-secondary p-2 rounded-xl text-center font-semibold">
-            Models:- {models.length}
+            Models Available:- {models.length}
           </p>
         </div>
 
@@ -102,7 +102,7 @@ const AllModelsPage = () => {
                 </p>
 
                 <Link
-                  to={`/models/${model._id}`}
+                  to={`/model_details/${model._id}`}
                   className="mt-auto py-2 px-4 rounded-lg text-center dark:text-secondary dark:bg-base-300 not-dark:text-primary not-dark:bg-base-300 font-semibold"
                 >
                   View Details

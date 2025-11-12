@@ -7,6 +7,8 @@ import Register from "../../Auth/Register";
 import AddModelPage from "../../Pages/Models/AddModels";
 import PrivateRoute from "../../Provider/PrivateRoute";
 import AllModels from "../../Pages/Models/AllModels";
+import ModelsDetails from "../../Pages/Models/ModelsDetails";
+import UpdateModels from "../../Pages/Models/UpdateModels";
 
 const router = createBrowserRouter([
   {
@@ -38,6 +40,26 @@ const router = createBrowserRouter([
       {
         path: "/all_models",
         element: <AllModels></AllModels>,
+      },
+      {
+        path: "/model_details/:id",
+        element: (
+          <PrivateRoute>
+            <ModelsDetails></ModelsDetails>
+          </PrivateRoute>
+        ),
+        loader: ({ params }) =>
+          fetch(`http://localhost:3000/models/${params.id}`),
+      },
+      {
+        path: "/update_model/:id",
+        element: (
+          <PrivateRoute>
+            <UpdateModels></UpdateModels>
+          </PrivateRoute>
+        ),
+        loader: ({ params }) =>
+          fetch(`http://localhost:3000/models/${params.id}`),
       },
     ],
   },

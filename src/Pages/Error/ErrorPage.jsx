@@ -21,7 +21,7 @@ const ErrorPage = () => {
           Oops! The page you are looking for does not exist.
         </p>
         <button
-          className="btn-primary px-5 py-3 font-semibold text-primary"
+          className="dark:bg-secondary dark:text-primary not-dark:bg-primary not-dark:text-base-200 px-5 py-3 font-semibold rounded-2xl hover:cursor-pointer"
           onClick={() => navigate("/")}
         >
           Go Home

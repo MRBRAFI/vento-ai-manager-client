@@ -1,25 +1,12 @@
-import React, { use, useState } from "react";
-import { Navigate, useNavigate } from "react-router";
-import { AuthContext } from "../../Provider/AuthProvider";
+import React from "react";
+import { useLoaderData, useNavigate } from "react-router";
 import { toast } from "react-toastify";
 
-const AddModelPage = () => {
+const UpdateModels = () => {
+  const data = useLoaderData();
   const navigate = useNavigate();
-  const { user } = use(AuthContext);
-
-  const [formData, setFormData] = useState({
-    name: "",
-    framework: "",
-    useCase: "",
-    dataset: "",
-    description: "",
-    image: "",
-  });
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({ ...formData, [name]: value });
-  };
+  const details = data.result;
+  console.log(details);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -31,12 +18,10 @@ const AddModelPage = () => {
       dataset: e.target.dataset.value,
       description: e.target.description.value,
       image: e.target.image.value,
-      createdAt: new Date(),
-      createdBy: user.email,
     };
 
-    fetch("http://localhost:3000/models", {
-      method: "POST",
+    fetch(`http://localhost:3000/models/${details._id}`, {
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
@@ -48,7 +33,7 @@ const AddModelPage = () => {
       .then((data) => {
         console.log("data after adding", data);
         toast.success("Your data has been stored successfully");
-        navigate("/");
+        navigate(`${details._id}`);
       })
       .catch((iss) => {
         console.log(iss);
@@ -59,7 +44,7 @@ const AddModelPage = () => {
     <div className="min-h-screen my-15 mx-5 flex items-center justify-center px-4">
       <div className="bg-base-300 dark:bg-base-200 p-8 rounded-xl shadow-lg max-w-2xl w-full">
         <h1 className="text-2xl md:text-3xl font-bold mb-6 not-dark:text-primary dark:text-secondary text-center">
-          Add New AI Model
+          Update Your AI Model
         </h1>
 
         <form onSubmit={handleSubmit} className="space-y-4">
@@ -70,9 +55,8 @@ const AddModelPage = () => {
             <input
               name="name"
               id="name"
+              defaultValue={details.name}
               type="text"
-              value={formData.name}
-              onChange={handleChange}
               placeholder="e.g. BERT, ResNet-50"
               className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
               required
@@ -86,9 +70,8 @@ const AddModelPage = () => {
             <input
               name="framework"
               id="framework"
+              defaultValue={details.frameworl}
               type="text"
-              value={formData.framework}
-              onChange={handleChange}
               placeholder="TensorFlow, PyTorch…"
               className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
               required
@@ -102,9 +85,8 @@ const AddModelPage = () => {
             <input
               name="useCase"
               id="useCase"
+              defaultValue={details.useCase}
               type="text"
-              value={formData.useCase}
-              onChange={handleChange}
               placeholder="NLP, Computer Vision…"
               className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
               required
@@ -118,9 +100,8 @@ const AddModelPage = () => {
             <input
               name="dataset"
               id="dataset"
+              defaultValue={details.dataset}
               type="text"
-              value={formData.dataset}
-              onChange={handleChange}
               placeholder="ImageNet, COCO, Wikipedia…"
               className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
               required
@@ -134,8 +115,7 @@ const AddModelPage = () => {
             <textarea
               name="description"
               id="description"
-              value={formData.description}
-              onChange={handleChange}
+              defaultValue={details.description}
               placeholder="Briefly describe the model…"
               rows="3"
               className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
@@ -150,9 +130,8 @@ const AddModelPage = () => {
             <input
               name="image"
               id="image"
+              defaultValue={details.image}
               type="url"
-              value={formData.image}
-              onChange={handleChange}
               placeholder="Paste ImgBB link here"
               className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
               required
@@ -161,9 +140,9 @@ const AddModelPage = () => {
 
           <button
             type="submit"
-            className="btn dark:bg-secondary w-full py-2 mt-4 font-semibold text-primary"
+            className="btn dark:bg-secondary text-primary w-full py-2 mt-4 font-semibold"
           >
-            Add Model
+            Update Model
           </button>
         </form>
       </div>
@@ -171,4 +150,4 @@ const AddModelPage = () => {
   );
 };
 
-export default AddModelPage;
+export default UpdateModels;

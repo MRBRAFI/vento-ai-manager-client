@@ -39,7 +39,9 @@ const FeaturedAiModel = ({ data }) => {
         </SwiperSlide>
       </Swiper>
       <div className="text-3xl font-bold w-full text-center not-dark:text-primary dark:text-secondary">
-        <Link className="hover:animate-pulse">See more</Link>
+        <Link to={"/all_models"} className="hover:animate-pulse">
+          See more
+        </Link>
       </div>
     </section>
   );

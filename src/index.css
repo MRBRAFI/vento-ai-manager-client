@@ -50,21 +50,6 @@ body {
   color: var(--color-text);
 }
 
-/* Links hover */
-
-/* Buttons */
-button {
-  border-radius: 8px;
-  font-family: inherit;
-  background-color: var(--color-secondary);
-  cursor: pointer;
-  transition: border-color 0.25s;
-}
-button:focus,
-button:focus-visible {
-  outline: 1px auto -webkit-focus-ring-color;
-}
-
 /* Utility classes using variables */
 .bg-base-200 {
   background-color: var(--color-base-200);
