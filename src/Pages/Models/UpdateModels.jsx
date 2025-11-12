@@ -141,7 +141,7 @@ const UpdateModels = () => {
 
           <button
             type="submit"
-            className="btn dark:bg-secondary text-primary w-full py-2 mt-4 font-semibold"
+            className="btn dark:bg-secondary not-dark:bg-primary not-dark:text-base-200 dark:text-primary w-full py-2 mt-4 font-semibold"
           >
             Update Model
           </button>

@@ -119,17 +119,14 @@ const Navbar = () => {
                   </p>
                   <p className="text-sm font-semibold">Email : {user.email}</p>
                 </li>
-                <li>
-                  <a className="justify-between font-bold">
-                    Profile
-                    <span className="badge">New</span>
-                  </a>
-                </li>
+                <li></li>
                 <li>
                   <Link className="font-bold">Models Purchase Page</Link>
                 </li>
                 <li>
-                  <Link className="font-bold">My Models Page</Link>
+                  <Link to={"/my_models"} className="font-bold">
+                    My Models Page
+                  </Link>
                 </li>
                 <li>
                   <p

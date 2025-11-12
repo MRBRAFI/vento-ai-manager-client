@@ -161,7 +161,7 @@ const AddModelPage = () => {
 
           <button
             type="submit"
-            className="btn dark:bg-secondary w-full py-2 mt-4 font-semibold text-primary"
+            className="btn dark:bg-secondary not-dark:bg-primary not-dark:text-base-200 dark:text-primary w-full py-2 mt-4 font-semibold"
           >
             Add Model
           </button>

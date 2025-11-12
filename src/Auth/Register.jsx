@@ -167,14 +167,14 @@ const RegisterPage = () => {
           {/* Register Button */}
           <button
             type="submit"
-            className="btn-primary w-full py-2 mt-2 font-semibold text-primary"
+            className="btn dark:bg-secondary not-dark:bg-primary not-dark:text-base-200 dark:text-primary w-full py-2 mt-2 font-semibold"
           >
             Register
           </button>
           <button
             type="button"
             onClick={handleGoogleSignUp}
-            className="btn-primary w-full py-2 mt-2 font-semibold text-primary flex items-center justify-center gap-2"
+            className="btn dark:bg-secondary not-dark:bg-primary not-dark:text-base-200 dark:text-primary w-full py-2 mt-2 font-semibold flex items-center justify-center gap-2"
           >
             <FaGoogle className="text-xl"></FaGoogle> Sign-up with google
           </button>

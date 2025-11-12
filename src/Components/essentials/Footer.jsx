@@ -15,7 +15,7 @@ const Footer = () => {
           <Link
             to="https://github.com/MRBRAFI/vento-ai-manager-client"
             target="_blank"
-            className="flex items-center gap-2 dark:text-secondary not-dark:text-primary hover:text-primary transition"
+            className="flex items-center gap-2 dark:text-secondary not-dark:text-primary dark:hover:text-white hover:not-dark:text-black transition"
           >
             <FaGithub size={20} />
             <span className="text-sm">Client Repo</span>
@@ -24,7 +24,7 @@ const Footer = () => {
           <Link
             to="https://github.com/MRBRAFI/vento-ai-manager-server"
             target="_blank"
-            className="flex items-center gap-2 dark:text-secondary not-dark:text-primary hover:text-primary transition"
+            className="flex items-center gap-2 dark:text-secondary not-dark:text-primary dark:hover:text-white hover:not-dark:text-black transition"
           >
             <FaGithub size={20} />
             <span className="text-sm">Server Repo</span>

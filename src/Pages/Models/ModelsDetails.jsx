@@ -1,17 +1,57 @@
 import React, { use } from "react";
-import { Link, useLoaderData, useLocation } from "react-router";
+import { Link, useLoaderData, useLocation, useNavigate } from "react-router";
 import { AuthContext } from "../../Provider/AuthProvider";
+import { toast } from "react-toastify";
+import Swal from "sweetalert2";
 
 const ModelDetailsPage = () => {
   const { user } = use(AuthContext);
   const location = useLocation();
+  const navigate = useNavigate();
   const data = useLoaderData();
   const details = data.result;
   const userEmail = user.email;
   const creatorEmail = details.createdBy;
 
+  const handleDeletion = () => {
+    Swal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to save your company",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        fetch(`http://localhost:3000/models/${details._id}`, {
+          method: "DELETE",
+          headers: {
+            "Content-Type": "application/json",
+          },
+        })
+          .then((res) => {
+            return res.json();
+          })
+          .then((data) => {
+            console.log("data after adding", data);
+            toast.success("Your data has been stored successfully");
+            Swal.fire({
+              title: "Deleted!",
+              text: "Your have ধশায় দিছো your company.",
+              icon: "success",
+            });
+            navigate("/all_models");
+          })
+          .catch((iss) => {
+            console.log(iss);
+          });
+      }
+    });
+  };
+
   return (
-    <div className="w-[50%] mx-auto min-h-screen my-16 flex flex-col gap-10">
+    <div className="md:w-[90%] lg:w-[50%] mx-3 md:mx-auto lg:mx-auto min-h-screen my-16 flex flex-col gap-10">
       <div className="flex items-center justify-center">
         <img
           src={details.image}
@@ -52,23 +92,26 @@ const ModelDetailsPage = () => {
               <Link
                 state={location.pathname}
                 to={`/update_model/${details._id}`}
-                className="dark:bg-secondary dark:text-primary not-dark:bg-primary not-dark:text-base-300 font-semibold py-2 px-6 rounded-xl"
+                className="flex items-center dark:bg-secondary dark:text-primary not-dark:bg-primary not-dark:text-base-300 font-semibold py-2 px-6 rounded-xl"
               >
                 Edit
               </Link>
 
-              <div className="hover:cursor-pointer dark:bg-secondary dark:text-primary not-dark:bg-primary not-dark:text-base-300 font-semibold py-2 px-6 rounded-xl">
+              <button
+                onClick={handleDeletion}
+                className="hover:cursor-pointer dark:bg-secondary dark:text-primary not-dark:bg-primary not-dark:text-base-300 font-semibold py-2 px-6 rounded-xl"
+              >
                 Delete
-              </div>
+              </button>
 
-              <div className="hover:cursor-pointer dark:bg-secondary dark:text-primary not-dark:bg-primary not-dark:text-base-300 font-semibold py-2 px-6 rounded-xl">
+              <button className="hover:cursor-pointer dark:bg-secondary dark:text-primary not-dark:bg-primary not-dark:text-base-300 font-semibold py-2 px-6 rounded-xl">
                 Purchase Model
-              </div>
+              </button>
             </div>
           ) : (
-            <div className="hover:cursor-pointer dark:bg-secondary dark:text-primary not-dark:bg-primary not-dark:text-base-300 font-semibold py-2 px-6 rounded-xl">
+            <button className="hover:cursor-pointer dark:bg-secondary dark:text-primary not-dark:bg-primary not-dark:text-base-300 font-semibold py-2 px-6 rounded-xl">
               Purchase Model
-            </div>
+            </button>
           )}
         </div>
       </div>

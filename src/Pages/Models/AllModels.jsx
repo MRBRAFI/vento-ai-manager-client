@@ -80,7 +80,7 @@ const AllModelsPage = () => {
           {models.map((model) => (
             <div
               key={model._id}
-              className="bg-base-200 dark:bg-base-300 rounded-2xl shadow-lg overflow-hidden flex flex-col"
+              className="not-dark:bg-base-200 dark:bg-base-300 rounded-2xl shadow-lg overflow-hidden flex flex-col"
             >
               <img
                 src={model.image}
@@ -89,12 +89,12 @@ const AllModelsPage = () => {
               />
 
               <div className="p-4 flex flex-col flex-1">
-                <h2 className="text-xl text-center w-[60%] mx-auto py-1 px-1 font-semibold not-dark:text-base-300 dark:bg-secondary rounded-2xl dark:text-primary not-dark:bg-primary mb-5">
+                <h2 className="text-xl text-center w-[60%] mx-auto px-1 py-1 font-semibold not-dark:text-base-300 dark:bg-secondary rounded-2xl dark:text-primary not-dark:bg-primary my-5">
                   {model.name}
                 </h2>
                 <p className="text-sm not-dark:text-primary mb-1">
                   <span className="font-semibold">Framework:</span>{" "}
-                  {model.framework}
+                  {model.frameworl}
                 </p>
                 <p className="text-sm not-dark:text-primary mb-3">
                   <span className="font-semibold">Use Case:</span>{" "}
@@ -103,7 +103,7 @@ const AllModelsPage = () => {
 
                 <Link
                   to={`/model_details/${model._id}`}
-                  className="mt-auto py-2 px-4 rounded-lg text-center dark:text-secondary dark:bg-base-300 not-dark:text-primary not-dark:bg-base-300 font-semibold"
+                  className="mt-auto py-2 px-4 rounded-lg text-center dark:text-secondary dark:bg-base-200 not-dark:text-primary not-dark:bg-base-300 font-semibold"
                 >
                   View Details
                 </Link>

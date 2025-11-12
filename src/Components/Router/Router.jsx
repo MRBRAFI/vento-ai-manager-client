@@ -9,6 +9,7 @@ import PrivateRoute from "../../Provider/PrivateRoute";
 import AllModels from "../../Pages/Models/AllModels";
 import ModelsDetails from "../../Pages/Models/ModelsDetails";
 import UpdateModels from "../../Pages/Models/UpdateModels";
+import MyModels from "../../Pages/Models/MyModels";
 
 const router = createBrowserRouter([
   {
@@ -60,6 +61,10 @@ const router = createBrowserRouter([
         ),
         loader: ({ params }) =>
           fetch(`http://localhost:3000/models/${params.id}`),
+      },
+      {
+        path: "/my_models",
+        element: <MyModels></MyModels>,
       },
     ],
   },
