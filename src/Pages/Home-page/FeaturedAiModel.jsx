@@ -2,10 +2,11 @@ import React from "react";
 import { Autoplay, Navigation, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import AiModelCard from "./AiModelCard";
+import { Link } from "react-router";
 
 const FeaturedAiModel = ({ data }) => {
   const firstThree = data.slice(0, 3);
-  const nextThree = data.slice(3, 6);
+  const secondThree = data.slice(3, 6);
 
   return (
     <section className="my-20 w-11/12 mx-auto">
@@ -14,11 +15,8 @@ const FeaturedAiModel = ({ data }) => {
       </h2>
       <Swiper
         modules={[Autoplay]}
-        speed={35000}
-        autoplay={{
-          delay: 1,
-          disableOnInteraction: false,
-        }}
+        speed={2500}
+        autoplay={{ delay: 4500 }}
         loop={true}
         spaceBetween={20}
         slidesPerView={1}
@@ -33,13 +31,16 @@ const FeaturedAiModel = ({ data }) => {
           </div>
         </SwiperSlide>
         <SwiperSlide>
-          <div className="grid md:grid-cols-3 gap-8">
-            {nextThree.map((item) => (
+          <div className="grid md:grid-cols-3 gap-8 mb-12">
+            {secondThree.map((item) => (
               <AiModelCard key={item._id} item={item} />
             ))}
           </div>
         </SwiperSlide>
       </Swiper>
+      <div className="text-3xl font-bold w-full text-center not-dark:text-primary dark:text-secondary">
+        <Link className="hover:animate-pulse">See more</Link>
+      </div>
     </section>
   );
 };

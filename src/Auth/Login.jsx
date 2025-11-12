@@ -5,7 +5,8 @@ import { AuthContext } from "../Provider/AuthProvider";
 import { toast } from "react-toastify";
 
 const LoginPage = () => {
-  const { user, setUser, userLogIn, googleSignIn } = use(AuthContext);
+  const { user, setUser, userLogIn, googleSignIn, setLoading } =
+    use(AuthContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [toggle, setToggle] = useState(true);
@@ -24,6 +25,7 @@ const LoginPage = () => {
         toast.success("You have logged in successfully");
         setUser(user);
         navigate("/");
+        setLoading(false);
       })
       .catch(() => {
         toast.error("Unfortunately you were unable to log in");

@@ -6,6 +6,7 @@ import LoginPage from "../../Auth/Login";
 import Register from "../../Auth/Register";
 import AddModelPage from "../../Pages/Models/AddModels";
 import PrivateRoute from "../../Provider/PrivateRoute";
+import AllModels from "../../Pages/Models/AllModels";
 
 const router = createBrowserRouter([
   {
@@ -16,7 +17,7 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <HomePage></HomePage>,
-        loader: () => fetch("http://localhost:3000/latest_models"),
+        loader: () => fetch("http://localhost:3000/models"),
       },
       {
         path: "/login",
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
             <AddModelPage></AddModelPage>
           </PrivateRoute>
         ),
+      },
+      {
+        path: "/all_models",
+        element: <AllModels></AllModels>,
       },
     ],
   },

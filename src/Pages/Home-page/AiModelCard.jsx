@@ -15,11 +15,11 @@ const AiModelCard = ({ item }) => {
     "
     >
       <span className="badge dark:badge-secondary dark:text-primary not-dark:text-base-200 not-dark:badge-primary mb-4 px-4 py-2 font-semibold">
-        {item.framework}
+        {item.frameworl}
       </span>
 
       <h3 className="text-xl font-bold mb-3 not-dark:group-hover:text-primary dark:group-hover:text-secondary transition">
-        {item.modelName}
+        {item.name}
       </h3>
 
       <p className="text-sm opacity-80 leading-relaxed">{item.description}</p>

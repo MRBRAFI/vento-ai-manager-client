@@ -17,7 +17,7 @@ const HeroSlider = () => {
       >
         <SwiperSlide>
           <img
-            src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQAAZDr84eU2z4_2fYgUYuMHxrStERWuAvRUQ&s"
+            src="https://upload.wikimedia.org/wikipedia/commons/thumb/a/ab/TensorFlow_logo.svg/1200px-TensorFlow_logo.svg.png"
             className="w-full  h-[350px] md:h-[650px] lg:h-[650px] rounded-2xl"
             alt="Slide 1"
           />

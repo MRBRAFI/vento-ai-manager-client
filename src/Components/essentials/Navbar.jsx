@@ -48,7 +48,10 @@ const Navbar = () => {
             >
               Home
             </Link>
-            <Link className="not-dark:text-base-200 dark:text-primary dark:bg-secondary not-dark:bg-primary rounded-xl text-black font-semibold md:px-5 md:py-2 py-1 px-3 text-xs md:text-base">
+            <Link
+              to={"/all_models"}
+              className="not-dark:text-base-200 dark:text-primary dark:bg-secondary not-dark:bg-primary rounded-xl text-black font-semibold md:px-5 md:py-2 py-1 px-3 text-xs md:text-base"
+            >
               View Models
             </Link>
             <Link
@@ -58,24 +61,30 @@ const Navbar = () => {
               Add Model
             </Link>
           </div>
-          <div className="md:hidden flex ">
+          <div className="md:hidden lg:hidden flex ">
             <details className="dropdown">
-              <summary className="btn not-dark:btn-secondary not-dark:text-primary text-white bg-secondary m-1">
+              <summary className="btn dark:bg-secondary dark:text-primary not-dark:text-base-300 not-dark:bg-primary m-1">
                 Workspace
               </summary>
-              <ul className="menu dropdown-content bg-base-100 rounded-box z-1 w-35 gap-3 p-3 shadow-sm">
+              <ul className="menu dropdown-content dark:bg-base-300 dark:text-primary not-dark:bg-primary rounded-box z-1 w-35 gap-3 p-3 shadow-sm">
                 <li>
-                  <Link className="not-dark:text-primary text-black font-semibold md:px-5 md:py-2 py-1 px-3 text-xs md:text-base">
+                  <Link className="dark:text-primary not-dark:text-primary not-dark:bg-base-300 dark:bg-secondary font-semibold md:px-5 md:py-2 py-1 px-3 text-xs md:text-base">
                     Home
                   </Link>
                 </li>
                 <li>
-                  <Link className="not-dark:text-primary text-black font-semibold md:px-5 md:py-2 py-1 px-3 text-xs md:text-base">
+                  <Link
+                    to={"/all_models"}
+                    className="dark:text-primary not-dark:text-primary not-dark:bg-base-300 dark:bg-secondary font-semibold md:px-5 md:py-2 py-1 px-3 text-xs md:text-base"
+                  >
                     View Models
                   </Link>
                 </li>
                 <li>
-                  <Link className="not-dark:text-primary text-black font-semibold md:px-5 md:py-2 py-1 px-3 text-xs md:text-base">
+                  <Link
+                    to={"/add_models"}
+                    className="dark:text-primary not-dark:text-primary not-dark:bg-base-300 dark:bg-secondary font-semibold md:px-5 md:py-2 py-1 px-3 text-xs md:text-base"
+                  >
                     Add Model
                   </Link>
                 </li>
@@ -104,28 +113,31 @@ const Navbar = () => {
                 tabIndex="-1"
                 className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-65 p-2 shadow"
               >
-                <li className="dark:bg-secondary dark:text-primary not-dark:bg-primary not-dark:text-secondary rounded-2xl p-1">
+                <li className="dark:bg-secondary dark:text-primary not-dark:bg-primary not-dark:text-base-300 rounded-2xl p-1">
                   <p className="text-sm font-semibold">
                     User : {user?.displayName || "Name"}
                   </p>
                   <p className="text-sm font-semibold">Email : {user.email}</p>
                 </li>
                 <li>
-                  <a className="justify-between">
+                  <a className="justify-between font-bold">
                     Profile
                     <span className="badge">New</span>
                   </a>
                 </li>
                 <li>
-                  <Link>Models Purchase Page</Link>
+                  <Link className="font-bold">Models Purchase Page</Link>
                 </li>
                 <li>
-                  <Link>My Models Page</Link>
+                  <Link className="font-bold">My Models Page</Link>
                 </li>
                 <li>
-                  <button onClick={logOutHandler} className="text-primary">
+                  <p
+                    onClick={logOutHandler}
+                    className="text-base-300 font-bold not-dark:bg-primary not-dark:text-base-300 dark:bg-secondary dark:text-primary rounded-xl"
+                  >
                     Log Out
-                  </button>
+                  </p>
                 </li>
               </ul>
             </div>

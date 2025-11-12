@@ -1,8 +1,11 @@
-import React, { useState } from "react";
+import React, { use, useState } from "react";
 import { useNavigate } from "react-router";
+import { AuthContext } from "../../Provider/AuthProvider";
+import { toast } from "react-toastify";
 
 const AddModelPage = () => {
   const navigate = useNavigate();
+  const { user } = use(AuthContext);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -20,14 +23,39 @@ const AddModelPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log(formData);
 
-    alert("✅ Model added successfully!");
-    navigate("/");
+    const modelData = {
+      name: e.target.name.value,
+      frameworl: e.target.framework.value,
+      useCase: e.target.useCase.value,
+      dataset: e.target.dataset.value,
+      description: e.target.description.value,
+      image: e.target.image.value,
+      createdAt: new Date(),
+      createdBy: user.email,
+    };
+
+    fetch("http://localhost:3000/models", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(modelData),
+    })
+      .then((res) => {
+        res.json();
+      })
+      .then((data) => {
+        console.log("data after adding", data);
+        toast.success("Your data has been stored successfully");
+      })
+      .catch((iss) => {
+        console.log(iss);
+      });
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4">
+    <div className="min-h-screen my-15 mx-5 flex items-center justify-center px-4">
       <div className="bg-base-300 dark:bg-base-200 p-8 rounded-xl shadow-lg max-w-2xl w-full">
         <h1 className="text-2xl md:text-3xl font-bold mb-6 not-dark:text-primary dark:text-secondary text-center">
           Add New AI Model
@@ -121,7 +149,7 @@ const AddModelPage = () => {
             <input
               name="image"
               id="image"
-              type="text"
+              type="url"
               value={formData.image}
               onChange={handleChange}
               placeholder="Paste ImgBB link here"
