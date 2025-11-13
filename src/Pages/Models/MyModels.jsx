@@ -81,7 +81,7 @@ const MyModels = () => {
 
                   <td>
                     <div className="flex gap-2">
-                      <Link to={`/models/${item._id}`}>
+                      <Link to={`/model_details/${item._id}`}>
                         <button className="btn dark:bg-secondary not-dark:bg-primary not-dark:text-base-200 dark:text-primary rounded-xl">
                           View Details
                         </button>

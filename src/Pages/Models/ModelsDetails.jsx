@@ -50,6 +50,31 @@ const ModelDetailsPage = () => {
     });
   };
 
+  const handlePurchasedModel = () => {
+    const { _id, ...modelData } = details;
+    const purchasedData = {
+      ...modelData,
+      modelId: _id,
+      purchasedBy: user?.email,
+    };
+
+    fetch("http://localhost:3000/purchased", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(purchasedData),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log(data);
+        toast.success("Model purchased successfully");
+      })
+      .catch((iss) => {
+        console.log(iss);
+      });
+  };
+
   return (
     <div className="md:w-[90%] lg:w-[50%] mx-3 md:mx-auto lg:mx-auto min-h-screen my-16 flex flex-col gap-10">
       <div className="flex items-center justify-center">
@@ -104,12 +129,18 @@ const ModelDetailsPage = () => {
                 Delete
               </button>
 
-              <button className="hover:cursor-pointer dark:bg-secondary dark:text-primary not-dark:bg-primary not-dark:text-base-300 font-semibold py-2 px-6 rounded-xl">
+              <button
+                onClick={handlePurchasedModel}
+                className="hover:cursor-pointer dark:bg-secondary dark:text-primary not-dark:bg-primary not-dark:text-base-300 font-semibold py-2 px-6 rounded-xl"
+              >
                 Purchase Model
               </button>
             </div>
           ) : (
-            <button className="hover:cursor-pointer dark:bg-secondary dark:text-primary not-dark:bg-primary not-dark:text-base-300 font-semibold py-2 px-6 rounded-xl">
+            <button
+              onClick={handlePurchasedModel}
+              className="hover:cursor-pointer dark:bg-secondary dark:text-primary not-dark:bg-primary not-dark:text-base-300 font-semibold py-2 px-6 rounded-xl"
+            >
               Purchase Model
             </button>
           )}

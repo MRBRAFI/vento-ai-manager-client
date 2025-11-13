@@ -64,7 +64,11 @@ const router = createBrowserRouter([
       },
       {
         path: "/my_models",
-        element: <MyModels></MyModels>,
+        element: (
+          <PrivateRoute>
+            <MyModels></MyModels>
+          </PrivateRoute>
+        ),
       },
     ],
   },
