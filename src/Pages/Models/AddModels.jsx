@@ -33,6 +33,7 @@ const AddModelPage = () => {
       image: e.target.image.value,
       createdAt: new Date(),
       createdBy: user.email,
+      purchased: 0,
     };
 
     fetch("http://localhost:3000/models", {

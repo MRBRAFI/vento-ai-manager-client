@@ -21,23 +21,27 @@ const AuthProvider = ({ children }) => {
   //   Google Sign In
 
   const googleSignIn = () => {
+    setLoading(true);
     return signInWithPopup(auth, Provider);
   };
 
   //   signing a user
   const createUser = (email, password) => {
+    setLoading(true);
     return createUserWithEmailAndPassword(auth, email, password);
   };
 
   //   signing Out a user
 
   const userSignOut = () => {
+    setLoading(true);
     return signOut(auth);
   };
 
   //   Logging In A User
 
   const userLogIn = (email, password) => {
+    setLoading(true);
     return signInWithEmailAndPassword(auth, email, password);
   };
 

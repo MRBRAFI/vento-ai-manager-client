@@ -11,7 +11,8 @@ const RegisterPage = () => {
   const [toggle, setToggle] = useState(true);
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
-  const { createUser, setUser, googleSignIn } = use(AuthContext);
+  const { createUser, setUser, setLoading, loading, googleSignIn } =
+    use(AuthContext);
 
   const handleRegister = (e) => {
     e.preventDefault();
@@ -49,10 +50,12 @@ const RegisterPage = () => {
         toast.success("Sign-In successful");
         setUser(user);
         navigate("/");
+        setLoading(false);
       })
       .catch((issue) => {
         console.log(issue);
         toast.error("This user already exists! Please try logging in");
+        setLoading(false);
       });
   };
   const handleGoogleSignUp = () => {
@@ -62,8 +65,11 @@ const RegisterPage = () => {
         toast("You have successfully signed in");
         setUser(user);
         navigate("/");
+        setLoading(false);
       })
-      .catch(() => {});
+      .catch(() => {
+        setLoading(false);
+      });
   };
   return (
     <div className="min-h-screen flex items-center justify-center px-4">

@@ -5,7 +5,7 @@ import { AuthContext } from "../Provider/AuthProvider";
 import { toast } from "react-toastify";
 
 const LoginPage = () => {
-  const { user, setUser, userLogIn, googleSignIn, setLoading } =
+  const { user, setUser, userLogIn, googleSignIn, loading, setLoading } =
     use(AuthContext);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -29,6 +29,7 @@ const LoginPage = () => {
       })
       .catch(() => {
         toast.error("Unfortunately you were unable to log in");
+        setLoading(false);
       });
   };
 
@@ -39,10 +40,12 @@ const LoginPage = () => {
         setUser(user);
         navigate("/");
         toast.success("You have successfully loged in");
+        setLoading(false);
       })
       .catch((iss) => {
         console.log(iss);
         toast.error("Oops! Login unsuccessful");
+        setLoading(false);
       });
   };
 

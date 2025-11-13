@@ -34,14 +34,12 @@ const Navbar = () => {
     <div className="bg-base-200 shadow-sm ">
       <div className="flex justify-between items-center w-11/12 mx-auto">
         <div className="">
-          <img
-            src="https://i.ibb.co.com/DDGJHqN8/vento-removebg-preview.png"
-            alt=""
-            className="w-30 dark:bg-secondary rounded-xl"
-          />
+          <span className="text-5xl dark:text-secondary not-dark:text-primary font-extrabold animate-pulse">
+            VENTO
+          </span>
         </div>
         <div>
-          <div className="md:flex hidden md:gap-5 gap-2 not-dark:text-white ">
+          <div className="md:flex lg:flex hidden md:gap-5 gap-2 not-dark:text-white my-10">
             <Link
               to={"/"}
               className="not-dark:text-base-200 dark:text-primary dark:bg-secondary not-dark:bg-primary rounded-xl text-black font-semibold md:px-5 md:py-2 py-1 px-3 text-xs md:text-base"
@@ -61,7 +59,7 @@ const Navbar = () => {
               Add Model
             </Link>
           </div>
-          <div className="md:hidden lg:hidden flex ">
+          <div className="md:hidden lg:hidden flex my-10">
             <details className="dropdown">
               <summary className="btn dark:bg-secondary dark:text-primary not-dark:text-base-300 not-dark:bg-primary m-1">
                 Workspace
@@ -121,7 +119,9 @@ const Navbar = () => {
                 </li>
                 <li></li>
                 <li>
-                  <Link className="font-bold">Models Purchase Page</Link>
+                  <Link to={"/my_purchased_models"} className="font-bold">
+                    My Models Purchase Page
+                  </Link>
                 </li>
                 <li>
                   <Link to={"/my_models"} className="font-bold">

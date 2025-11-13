@@ -1,22 +1,22 @@
-import React, { use } from "react";
+import React, { use, useState } from "react";
 import { Link, useLoaderData, useLocation, useNavigate } from "react-router";
 import { AuthContext } from "../../Provider/AuthProvider";
 import { toast } from "react-toastify";
 import Swal from "sweetalert2";
 
 const ModelDetailsPage = () => {
+  const data = useLoaderData();
+  const [details, setDetails] = useState(data.result);
   const { user } = use(AuthContext);
   const location = useLocation();
   const navigate = useNavigate();
-  const data = useLoaderData();
-  const details = data.result;
   const userEmail = user.email;
   const creatorEmail = details.createdBy;
 
   const handleDeletion = () => {
     Swal.fire({
       title: "Are you sure?",
-      text: "You won't be able to save your company",
+      text: "You won't be able revert this",
       icon: "warning",
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
@@ -35,10 +35,10 @@ const ModelDetailsPage = () => {
           })
           .then((data) => {
             console.log("data after adding", data);
-            toast.success("Your data has been stored successfully");
+            toast.success("Your data has been deleted successfully");
             Swal.fire({
               title: "Deleted!",
-              text: "Your have ধশায় দিছো your company.",
+              text: "Model deleted",
               icon: "success",
             });
             navigate("/all_models");
@@ -55,37 +55,23 @@ const ModelDetailsPage = () => {
     const purchasedData = {
       ...modelData,
       modelId: _id,
-      purchased: 0,
       purchasedBy: user?.email,
     };
 
     fetch("http://localhost:3000/purchased", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(purchasedData),
     })
       .then((res) => res.json())
       .then((data) => {
         console.log(data);
         toast.success("Model purchased successfully");
-
-        return fetch(`http://localhost:3000/models/${details._id}`, {
-          method: "PATCH",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ purchased: purchased + 1 }),
-        })
-          .then((res) => res.json())
-          .then((updatedData) => {
-            console.log(updatedData);
-            toast.success("Purchased Count Increased");
-          });
+        setDetails((prev) => ({ ...prev, purchased: prev.purchased + 1 }));
       })
-      .catch((iss) => {
-        console.log(iss);
+      .catch((err) => {
+        console.log(err);
+        toast.error("Something went wrong while purchasing");
       });
   };
 
@@ -119,7 +105,7 @@ const ModelDetailsPage = () => {
             <span className="font-semibold not">Description:</span>{" "}
             {details.description}
           </p>
-          <p>
+          <p className="dark:bg-secondary dark:text-primary not-dark:bg-primary not-dark:text-base-300 lg:max-w-1/4  md:max-w-1/3 max-w-1/1 text-center p-3 rounded-xl">
             <span className="font-semibold">Purchased Count:</span>{" "}
             {details.purchased} times
           </p>
