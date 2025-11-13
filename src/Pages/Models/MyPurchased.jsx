@@ -38,7 +38,7 @@ const MyPurchasedModels = () => {
       </h2>
 
       {userPurchases.length === 0 ? (
-        <p className="text-center text-lg text-white">
+        <p className="text-center text-lg dark:text-white not-dark:text-primary">
           You haven’t purchased any models yet.
         </p>
       ) : (

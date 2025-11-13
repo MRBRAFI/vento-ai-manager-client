@@ -26,7 +26,7 @@ const AllModelsPage = () => {
           ];
           setFrameworks(["All", ...filteredData]);
         })
-        .catch((err) => console.error("Error fetching models:", err))
+        .catch(() => {}) 
         .finally(() => setLoading(false));
     }, 500);
 
