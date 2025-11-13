@@ -55,6 +55,7 @@ const ModelDetailsPage = () => {
     const purchasedData = {
       ...modelData,
       modelId: _id,
+      purchased: 0,
       purchasedBy: user?.email,
     };
 
@@ -69,6 +70,19 @@ const ModelDetailsPage = () => {
       .then((data) => {
         console.log(data);
         toast.success("Model purchased successfully");
+
+        return fetch(`http://localhost:3000/models/${details._id}`, {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ purchased: purchased + 1 }),
+        })
+          .then((res) => res.json())
+          .then((updatedData) => {
+            console.log(updatedData);
+            toast.success("Purchased Count Increased");
+          });
       })
       .catch((iss) => {
         console.log(iss);
