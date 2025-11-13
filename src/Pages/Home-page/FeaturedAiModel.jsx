@@ -5,8 +5,8 @@ import AiModelCard from "./AiModelCard";
 import { Link } from "react-router";
 
 const FeaturedAiModel = ({ data }) => {
-  const firstThree = data.slice(0, 3);
-  const secondThree = data.slice(3, 6);
+  const firstThree = Array.isArray(data) ? data.slice(0, 3) : [];
+  const secondThree = Array.isArray(data) ? data.slice(3, 6) : [];
 
   return (
     <section className="my-20 w-11/12 mx-auto">
