@@ -51,14 +51,12 @@ const AddModelPage = () => {
         res.json();
       })
       .then((data) => {
-        console.log("data after adding", data);
         toast.success("Your data has been stored successfully");
-        navigate("/");
+        navigate("/all_models");
         setLoading(false);
         setIsSubmitting(false);
       })
       .catch((iss) => {
-        console.log(iss);
         setLoading(false);
         setIsSubmitting(false);
       });

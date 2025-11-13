@@ -19,8 +19,7 @@ const MyModels = () => {
         setModels(data);
         setLoading(false);
       })
-      .catch((err) => {
-        console.error(err);
+      .catch(() => {
         setLoading(false);
       });
   }, [user]);
@@ -28,8 +27,8 @@ const MyModels = () => {
   if (loading) return <Loader></Loader>;
 
   return (
-    <div className="w-11/12 mx-auto my-10 rounded-2xl p-4 md:p-6 shadow-xl dark:bg-base-200 not-dark:bg-base-300 min-h-screen">
-      <h2 className="text-2xl md:text-3xl font-bold text-center dark:text-secondary not-dark:text-primary py-5 mb-6 rounded-t-xl">
+    <div className="lg:w-11/12  md:mx-auto my-10 rounded-2xl p-4 md:p-6 shadow-xl dark:bg-base-200 not-dark:bg-base-300 min-h-screen">
+      <h2 className="text-2xl md:text-3xl font-bold text-center dark:bg-base-300 not-dark:bg-base-200 dark:text-secondary not-dark:text-primary py-5 mb-6 rounded-t-xl">
         My AI Models
       </h2>
 
@@ -71,7 +70,7 @@ const MyModels = () => {
                       </div>
                     </td>
                     <td className="font-semibold">{item.name}</td>
-                    <td>{item.framework}</td>
+                    <td>{item.frameworl}</td>
                     <td>{item.useCase}</td>
                     <td className="text-sm opacity-70">{item.createdBy}</td>
                     <td>
@@ -113,7 +112,7 @@ const MyModels = () => {
                 </p>
                 <p>
                   <span className="font-semibold">Framework:</span>{" "}
-                  {item.framework}
+                  {item.frameworl}
                 </p>
                 <p>
                   <span className="font-semibold">Use Case:</span>{" "}

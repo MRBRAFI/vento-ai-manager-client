@@ -6,7 +6,6 @@ import Swal from "sweetalert2";
 const Navbar = () => {
   const { user, userSignOut } = use(AuthContext);
   const logOutHandler = () => {
-    console.log(user);
     Swal.fire({
       title: "Are you sure?",
       text: "You want to log out",
@@ -24,9 +23,7 @@ const Navbar = () => {
         });
         userSignOut()
           .then(() => {})
-          .catch((iss) => {
-            console.log(iss);
-          });
+          .catch(() => {});
       }
     });
   };
@@ -50,7 +47,7 @@ const Navbar = () => {
               to={"/all_models"}
               className="not-dark:text-base-200 dark:text-primary dark:bg-secondary not-dark:bg-primary rounded-xl text-black font-semibold md:px-5 md:py-2 py-1 px-3 text-xs md:text-base"
             >
-              View Models
+              All Models
             </Link>
             <Link
               to={"/add_models"}
@@ -61,7 +58,7 @@ const Navbar = () => {
           </div>
           <div className="md:hidden lg:hidden flex my-10">
             <details className="dropdown">
-              <summary className="btn dark:bg-secondary dark:text-primary not-dark:text-base-300 not-dark:bg-primary m-1">
+              <summary className="btn dark:bg-secondary dark:text-primary not-dark:text-base-300 not-dark:bg-primary m-1 rounded-xl">
                 Workspace
               </summary>
               <ul className="menu dropdown-content dark:bg-base-300 dark:text-primary not-dark:bg-primary rounded-box z-1 w-35 gap-3 p-3 shadow-sm">
@@ -109,7 +106,7 @@ const Navbar = () => {
               </div>
               <ul
                 tabIndex="-1"
-                className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-65 p-2 shadow"
+                className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 min-w-65 p-2 shadow"
               >
                 <li className="dark:bg-secondary dark:text-primary not-dark:bg-primary not-dark:text-base-300 rounded-2xl p-1">
                   <p className="text-sm font-semibold">

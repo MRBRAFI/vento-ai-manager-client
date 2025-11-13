@@ -3,6 +3,7 @@ import { FaEye, FaEyeSlash, FaGoogle } from "react-icons/fa";
 import { Link, useNavigate } from "react-router";
 import { AuthContext } from "../Provider/AuthProvider";
 import { toast } from "react-toastify";
+import Loader from "../Pages/Home-page/Loading";
 
 const LoginPage = () => {
   const { user, setUser, userLogIn, googleSignIn, loading, setLoading } =
@@ -16,9 +17,6 @@ const LoginPage = () => {
     e.preventDefault();
     const email = e.target.email.value;
     const password = e.target.password.value;
-    console.log("Email:", email);
-    console.log("Password:", password);
-
     userLogIn(email, password)
       .then((res) => {
         const user = res.user;
@@ -28,7 +26,7 @@ const LoginPage = () => {
         setLoading(false);
       })
       .catch(() => {
-        toast.error("Unfortunately you were unable to log in");
+        toast.error("Please enter valid credentials");
         setLoading(false);
       });
   };
@@ -42,12 +40,15 @@ const LoginPage = () => {
         toast.success("You have successfully loged in");
         setLoading(false);
       })
-      .catch((iss) => {
-        console.log(iss);
+      .catch(() => {
         toast.error("Oops! Login unsuccessful");
         setLoading(false);
       });
   };
+
+  if (loading) {
+    return <Loader></Loader>;
+  }
 
   return (
     <div className="min-h-screen flex items-center justify-center px-4">

@@ -12,8 +12,6 @@ const MyPurchasedModels = () => {
     (data) => user.email === data.purchasedBy
   );
 
-  console.log(userPurchases);
-
   useEffect(() => {
     if (!user?.email) return;
 
@@ -32,17 +30,18 @@ const MyPurchasedModels = () => {
   if (loading) return <Loader />;
 
   return (
-    <div className="w-11/12 mx-auto my-10 rounded-2xl p-4 md:p-6 shadow-xl dark:bg-base-200 not-dark:bg-base-300 min-h-screen">
-      <h2 className="text-2xl md:text-3xl font-bold text-center dark:text-secondary not-dark:text-primary py-5 mb-6 rounded-t-xl">
+    <div className="lg:w-11/12 mx-auto my-10 rounded-2xl p-4 md:p-6 shadow-xl dark:bg-base-200 not-dark:bg-base-300 min-h-screen">
+      <h2 className="text-2xl md:text-3xl font-bold text-center dark:bg-base-200 not-dark:bg-base-200 dark:text-secondary not-dark:text-primary py-5 mb-6 rounded-t-xl">
         My Purchased AI Models
       </h2>
 
       {userPurchases.length === 0 ? (
-        <p className="text-center text-lg dark:text-white not-dark:text-primary">
+        <p className="text-center text-lg text-white">
           You haven’t purchased any models yet.
         </p>
       ) : (
         <>
+          {/* Table for md and above */}
           <div className="hidden md:block overflow-x-auto">
             <table className="table w-full">
               <thead className="not-dark:bg-base-200 dark:bg-base-300 dark:text-secondary not-dark:text-primary text-sm uppercase">
@@ -52,6 +51,7 @@ const MyPurchasedModels = () => {
                   <th>Model Name</th>
                   <th>Framework</th>
                   <th>Use Case</th>
+                  <th>Created By</th>
                   <th>Purchased By</th>
                   <th>Actions</th>
                 </tr>
@@ -77,6 +77,7 @@ const MyPurchasedModels = () => {
                     <td className="font-semibold">{item.name}</td>
                     <td>{item.frameworl}</td>
                     <td>{item.useCase}</td>
+                    <td className="text-sm opacity-70">{item.createdBy}</td>
                     <td className="text-sm opacity-70">{item.purchasedBy}</td>
                     <td>
                       <div className="flex gap-2">
@@ -93,6 +94,7 @@ const MyPurchasedModels = () => {
             </table>
           </div>
 
+          {/* Card layout for small screens (< md) */}
           <div className="flex flex-col gap-4 md:hidden">
             {userPurchases.map((item, index) => (
               <div

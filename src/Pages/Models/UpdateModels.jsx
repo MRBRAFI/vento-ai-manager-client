@@ -8,7 +8,6 @@ const UpdateModels = () => {
   const location = useLocation();
   const navigate = useNavigate();
   const details = data.result;
-  console.log(details);
 
   const [loading, setLoading] = useState(false);
 
@@ -33,13 +32,11 @@ const UpdateModels = () => {
       body: JSON.stringify(modelData),
     })
       .then((res) => res.json())
-      .then((data) => {
-        console.log("data after adding", data);
+      .then(() => {
         toast.success("Your data has been updated successfully");
         navigate(`${location.state ? location.state : "/"}`);
       })
-      .catch((err) => {
-        console.log(err);
+      .catch(() => {
         toast.error("Failed to update model");
       })
       .finally(() => setLoading(false));

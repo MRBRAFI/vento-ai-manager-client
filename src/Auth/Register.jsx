@@ -3,6 +3,8 @@ import { Link, useNavigate } from "react-router";
 import { AuthContext } from "../Provider/AuthProvider";
 import { FaEye, FaEyeSlash, FaGoogle } from "react-icons/fa";
 import { toast } from "react-toastify";
+import { updateProfile } from "firebase/auth";
+import Loader from "../Pages/Home-page/Loading";
 
 const RegisterPage = () => {
   const [name, setName] = useState("");
@@ -23,11 +25,6 @@ const RegisterPage = () => {
     const uppercase = /[A-Z]/;
     const lowercase = /[a-z]/;
 
-    console.log("Name:", name);
-    console.log("Email:", email);
-    console.log("Photo URL:", photo);
-    console.log("Password:", password);
-
     if (password.length < 6) {
       toast.error("Password must be at least 6 characters long");
       return;
@@ -46,14 +43,31 @@ const RegisterPage = () => {
     createUser(email, password)
       .then((result) => {
         const user = result.user;
-        console.log(user);
-        toast.success("Sign-In successful");
-        setUser(user);
-        navigate("/");
-        setLoading(false);
+
+        updateProfile(user, {
+          displayName: name,
+          photoURL: photo,
+        })
+          .then(() => {
+            const updatedUser = {
+              ...user,
+              displayName: name,
+              photoURL: photo,
+            };
+            setUser(updatedUser);
+
+            toast.success("Registration successful");
+            navigate("/");
+            setLoading(false);
+          })
+          .catch((err) => {
+            console.error("Profile update error:", err);
+            toast.error("Profile update failed. Please try again.");
+            setLoading(false);
+          });
       })
-      .catch((issue) => {
-        console.log(issue);
+      .catch((err) => {
+        console.error("Create user error:", err);
         toast.error("This user already exists! Please try logging in");
         setLoading(false);
       });
@@ -68,9 +82,14 @@ const RegisterPage = () => {
         setLoading(false);
       })
       .catch(() => {
+        toast.error("User already exists, try logging in");
         setLoading(false);
       });
   };
+
+  if (loading) {
+    return <Loader></Loader>;
+  }
   return (
     <div className="min-h-screen flex items-center justify-center px-4">
       <div className="bg-base-300 dark:bg-base-200 p-8 rounded-xl shadow-lg max-w-md w-full">

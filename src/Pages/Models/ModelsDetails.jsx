@@ -33,9 +33,8 @@ const ModelDetailsPage = () => {
           .then((res) => {
             return res.json();
           })
-          .then((data) => {
-            console.log("data after adding", data);
-            toast.success("Your data has been deleted successfully");
+          .then(() => {
+            toast.success("Your model been deleted successfully");
             Swal.fire({
               title: "Deleted!",
               text: "Model deleted",
@@ -43,9 +42,7 @@ const ModelDetailsPage = () => {
             });
             navigate("/all_models");
           })
-          .catch((iss) => {
-            console.log(iss);
-          });
+          .catch(() => {});
       }
     });
   };
@@ -64,13 +61,11 @@ const ModelDetailsPage = () => {
       body: JSON.stringify(purchasedData),
     })
       .then((res) => res.json())
-      .then((data) => {
-        console.log(data);
+      .then(() => {
         toast.success("Model purchased successfully");
         setDetails((prev) => ({ ...prev, purchased: prev.purchased + 1 }));
       })
-      .catch((err) => {
-        console.log(err);
+      .catch(() => {
         toast.error("Something went wrong while purchasing");
       });
   };
