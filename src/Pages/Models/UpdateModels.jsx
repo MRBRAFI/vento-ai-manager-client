@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import { useLoaderData, useLocation, useNavigate } from "react-router";
 import { toast } from "react-toastify";
+import Loader from "../Home-page/Loading";
 
 const UpdateModels = () => {
   const data = useLoaderData();
@@ -9,8 +10,11 @@ const UpdateModels = () => {
   const details = data.result;
   console.log(details);
 
+  const [loading, setLoading] = useState(false);
+
   const handleSubmit = (e) => {
     e.preventDefault();
+    setLoading(true);
 
     const modelData = {
       name: e.target.name.value,
@@ -28,18 +32,22 @@ const UpdateModels = () => {
       },
       body: JSON.stringify(modelData),
     })
-      .then((res) => {
-        res.json();
-      })
+      .then((res) => res.json())
       .then((data) => {
         console.log("data after adding", data);
-        toast.success("Your data has been stored successfully");
+        toast.success("Your data has been updated successfully");
         navigate(`${location.state ? location.state : "/"}`);
       })
-      .catch((iss) => {
-        console.log(iss);
-      });
+      .catch((err) => {
+        console.log(err);
+        toast.error("Failed to update model");
+      })
+      .finally(() => setLoading(false));
   };
+
+  if (loading) {
+    return <Loader />;
+  }
 
   return (
     <div className="min-h-screen my-15 mx-5 flex items-center justify-center px-4">

@@ -2,10 +2,10 @@ import React, { use, useState } from "react";
 import { Navigate, useNavigate } from "react-router";
 import { AuthContext } from "../../Provider/AuthProvider";
 import { toast } from "react-toastify";
-
+import Loader from "../Home-page/Loading";
 const AddModelPage = () => {
   const navigate = useNavigate();
-  const { user } = use(AuthContext);
+  const { user, setLoading } = use(AuthContext);
 
   const [formData, setFormData] = useState({
     name: "",
@@ -16,6 +16,8 @@ const AddModelPage = () => {
     image: "",
   });
 
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
@@ -23,6 +25,8 @@ const AddModelPage = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    setLoading(true);
+    setIsSubmitting(true);
 
     const modelData = {
       name: e.target.name.value,
@@ -50,11 +54,19 @@ const AddModelPage = () => {
         console.log("data after adding", data);
         toast.success("Your data has been stored successfully");
         navigate("/");
+        setLoading(false);
+        setIsSubmitting(false);
       })
       .catch((iss) => {
         console.log(iss);
+        setLoading(false);
+        setIsSubmitting(false);
       });
   };
+
+  if (isSubmitting) {
+    return <Loader />;
+  }
 
   return (
     <div className="min-h-screen my-15 mx-5 flex items-center justify-center px-4">
