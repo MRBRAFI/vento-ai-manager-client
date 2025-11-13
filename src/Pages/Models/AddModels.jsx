@@ -40,7 +40,7 @@ const AddModelPage = () => {
       purchased: 0,
     };
 
-    fetch("http://localhost:3000/models", {
+    fetch("https://vento-ai-management-server.vercel.app/models", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

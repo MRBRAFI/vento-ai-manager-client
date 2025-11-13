@@ -23,7 +23,8 @@ const router = createBrowserRouter(
         {
           index: true,
           element: <HomePage></HomePage>,
-          loader: () => fetch("http://localhost:3000/models"),
+          loader: () =>
+            fetch("https://vento-ai-management-server.vercel.app/models"),
           hydrateFallback: <Loader></Loader>,
         },
         { path: "/login", element: <LoginPage></LoginPage> },
@@ -48,7 +49,9 @@ const router = createBrowserRouter(
             </PrivateRoute>
           ),
           loader: ({ params }) =>
-            fetch(`http://localhost:3000/models/${params.id}`),
+            fetch(
+              `https://vento-ai-management-server.vercel.app/models/${params.id}`
+            ),
           hydrateFallback: <Loader></Loader>,
         },
         {
@@ -59,7 +62,9 @@ const router = createBrowserRouter(
             </PrivateRoute>
           ),
           loader: ({ params }) =>
-            fetch(`http://localhost:3000/models/${params.id}`),
+            fetch(
+              `https://vento-ai-management-server.vercel.app/models/${params.id}`
+            ),
           handle: { hydrateFallback: <Loader></Loader> },
         },
         {

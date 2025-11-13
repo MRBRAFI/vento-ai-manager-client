@@ -15,7 +15,9 @@ const MyPurchasedModels = () => {
   useEffect(() => {
     if (!user?.email) return;
 
-    fetch(`http://localhost:3000/purchased?user=${user.email}`)
+    fetch(
+      `https://vento-ai-management-server.vercel.app/purchased?user=${user.email}`
+    )
       .then((res) => res.json())
       .then((data) => {
         setPurchasedModels(data);

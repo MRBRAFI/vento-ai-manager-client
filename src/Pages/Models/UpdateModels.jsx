@@ -24,13 +24,16 @@ const UpdateModels = () => {
       image: e.target.image.value,
     };
 
-    fetch(`http://localhost:3000/models/${details._id}`, {
-      method: "PUT",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(modelData),
-    })
+    fetch(
+      `https://vento-ai-management-server.vercel.app/models/${details._id}`,
+      {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(modelData),
+      }
+    )
       .then((res) => res.json())
       .then(() => {
         toast.success("Your data has been updated successfully");

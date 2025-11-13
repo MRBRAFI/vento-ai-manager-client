@@ -24,12 +24,15 @@ const ModelDetailsPage = () => {
       confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
-        fetch(`http://localhost:3000/models/${details._id}`, {
-          method: "DELETE",
-          headers: {
-            "Content-Type": "application/json",
-          },
-        })
+        fetch(
+          `https://vento-ai-management-server.vercel.app/models/${details._id}`,
+          {
+            method: "DELETE",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          }
+        )
           .then((res) => {
             return res.json();
           })
@@ -55,7 +58,7 @@ const ModelDetailsPage = () => {
       purchasedBy: user?.email,
     };
 
-    fetch("http://localhost:3000/purchased", {
+    fetch("https://vento-ai-management-server.vercel.app/purchased", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(purchasedData),

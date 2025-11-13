@@ -15,7 +15,7 @@ const AllModelsPage = () => {
       setLoading(true);
 
       fetch(
-        `http://localhost:3000/models?search=${searchTerm}&framework=${selectedFramework}`
+        `https://vento-ai-management-server.vercel.app/models?search=${searchTerm}&framework=${selectedFramework}`
       )
         .then((res) => res.json())
         .then((data) => {

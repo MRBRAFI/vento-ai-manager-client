@@ -13,7 +13,9 @@ const MyModels = () => {
   useEffect(() => {
     if (!user?.email) return;
 
-    fetch(`http://localhost:3000/models?createdBy=${user.email}`)
+    fetch(
+      `https://vento-ai-management-server.vercel.app/models?createdBy=${user.email}`
+    )
       .then((res) => res.json())
       .then((data) => {
         setModels(data);
