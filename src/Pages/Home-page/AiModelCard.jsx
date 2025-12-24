@@ -1,32 +1,34 @@
 import React from "react";
+import { motion } from "framer-motion";
 
 const AiModelCard = ({ item }) => {
   return (
-    <div
-      className="
-      backdrop-blur-lg bg-base-200/70 dark:bg-base-300/70
-      border border-primary/10 
-      not-dark:hover:border-primary
-      dark:hover:border-secondary
-      shadow-lg hover:shadow-2xl
-      rounded-2xl p-6 
-      transition-all duration-500
-      group cursor-pointer
-      h-45
-      overflow-hidden
-    "
+    <motion.div
+      whileHover={{ y: -5 }}
+      className="glass-effect rounded-3xl p-8 flex flex-col h-full group hover:border-primary/50 dark:hover:border-secondary/50 transition-colors duration-500"
     >
-      <span className="badge dark:badge-secondary dark:text-primary not-dark:text-base-200 not-dark:badge-primary mb-4 px-4 py-2 font-semibold">
-        {item.frameworl}
-      </span>
+      <div className="flex items-center justify-between mb-6">
+        <span className="px-4 py-1.5 rounded-full text-xs font-bold uppercase tracking-wider bg-primary/10 text-primary dark:bg-secondary/10 dark:text-secondary">
+          {item.frameworl || "AI Model"}
+        </span>
+        <div className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></div>
+      </div>
 
-      <h3 className="text-xl font-bold mb-3 not-dark:group-hover:text-primary dark:group-hover:text-secondary transition">
+      <h3 className="text-2xl font-black mb-4 group-hover:text-primary dark:group-hover:text-secondary transition-colors">
         {item.name}
       </h3>
 
-      <p className="text-sm opacity-80 leading-relaxed">{item.description}</p>
-    </div>
+      <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-6 flex-grow">
+        {item.description}
+      </p>
+
+      <button className="text-sm font-bold flex items-center gap-2 group/btn">
+        Learn More
+        <span className="group-hover/btn:translate-x-1 transition-transform">→</span>
+      </button>
+    </motion.div>
   );
 };
 
 export default AiModelCard;
+

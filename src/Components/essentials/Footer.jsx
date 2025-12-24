@@ -1,42 +1,54 @@
 import { Link } from "react-router";
-import { FaGithub } from "react-icons/fa";
+import { FaGithub, FaTwitter, FaLinkedin } from "react-icons/fa";
 
 const Footer = () => {
   return (
-    <footer className="bg-base-200 text-base-content border-t dark:border-secondary border-primary mt-10">
-      <div className="w-11/12 mx-auto py-8 px-4 flex flex-col md:flex-row justify-between items-center gap-4">
-        <div className="flex items-center gap-2">
-          <span className="text-2xl font-bold not-dark:text-primary dark:text-secondary">
-            VENTO
-          </span>
+    <footer className="mt-20 py-12 px-4">
+      <div className="mx-auto max-w-7xl glass-effect rounded-[3rem] p-12">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-12 items-center">
+          {/* Logo & Info */}
+          <div className="text-center md:text-left">
+            <span className="text-4xl font-black gradient-text mb-4 inline-block">
+              VENTO
+            </span>
+            <p className="text-sm text-gray-600 dark:text-gray-400 max-w-xs mx-auto md:mx-0">
+              The ultimate platform for managing and exploring next-generation AI assets.
+            </p>
+          </div>
+
+          {/* Social Links */}
+          <div className="flex justify-center gap-6">
+            <Link 
+              to="https://github.com/MRBRAFI/vento-ai-manager-client" 
+              target="_blank"
+              className="w-12 h-12 rounded-full glass-effect flex items-center justify-center hover:bg-primary hover:text-white transition-all hover:-translate-y-1"
+            >
+              <FaGithub size={20} />
+            </Link>
+            <Link 
+              to="#" 
+              className="w-12 h-12 rounded-full glass-effect flex items-center justify-center hover:bg-primary hover:text-white transition-all hover:-translate-y-1"
+            >
+              <FaTwitter size={20} />
+            </Link>
+            <Link 
+              to="#" 
+              className="w-12 h-12 rounded-full glass-effect flex items-center justify-center hover:bg-primary hover:text-white transition-all hover:-translate-y-1"
+            >
+              <FaLinkedin size={20} />
+            </Link>
+          </div>
+
+          {/* Copyright */}
+          <div className="text-center md:text-right">
+            <p className="text-sm font-bold mb-2">© {new Date().getFullYear()} VENTO</p>
+            <p className="text-xs text-gray-500">Built for the future of AI management.</p>
+          </div>
         </div>
-
-        <div className="flex items-center gap-6">
-          <Link
-            to="https://github.com/MRBRAFI/vento-ai-manager-client"
-            target="_blank"
-            className="flex items-center gap-2 dark:text-secondary not-dark:text-primary dark:hover:text-white hover:not-dark:text-black transition"
-          >
-            <FaGithub size={20} />
-            <span className="text-sm">Client Repo</span>
-          </Link>
-
-          <Link
-            to="https://github.com/MRBRAFI/vento-ai-manager-server"
-            target="_blank"
-            className="flex items-center gap-2 dark:text-secondary not-dark:text-primary dark:hover:text-white hover:not-dark:text-black transition"
-          >
-            <FaGithub size={20} />
-            <span className="text-sm">Server Repo</span>
-          </Link>
-        </div>
-
-        <p className="text-xs md:text-sm text-center md:text-right dark:text-secondary  not-dark:text-primary ">
-          © {new Date().getFullYear()} VENTO — All Rights Reserved.
-        </p>
       </div>
     </footer>
   );
 };
 
 export default Footer;
+

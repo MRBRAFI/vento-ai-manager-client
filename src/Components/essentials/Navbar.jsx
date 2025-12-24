@@ -1,150 +1,138 @@
 import React, { use } from "react";
-import { Link } from "react-router";
+import { Link, NavLink } from "react-router";
 import { AuthContext } from "../../Provider/AuthProvider";
 import Swal from "sweetalert2";
 
 const Navbar = () => {
   const { user, userSignOut } = use(AuthContext);
+  
   const logOutHandler = () => {
     Swal.fire({
       title: "Are you sure?",
       text: "You want to log out",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: "#3085d6",
+      confirmButtonColor: "var(--color-primary)",
       cancelButtonColor: "#d33",
       confirmButtonText: "Yes, log me out!",
+      background: "var(--color-base-100)",
+      color: "var(--color-text)",
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire({
-          title: "Logged out",
-          text: "You have successfully logged out",
-          icon: "success",
-        });
         userSignOut()
-          .then(() => {})
-          .catch(() => {});
+          .then(() => {
+            Swal.fire({
+              title: "Logged out",
+              text: "You have successfully logged out",
+              icon: "success",
+              timer: 1500,
+              showConfirmButton: false
+            });
+          });
       }
     });
   };
+
+  const navLinks = [
+    { name: "Home", path: "/" },
+    { name: "All Models", path: "/all_models" },
+    { name: "Add Model", path: "/add_models" },
+  ];
+
   return (
-    <div className="bg-base-200 shadow-sm ">
-      <div className="flex justify-between items-center w-11/12 mx-auto">
-        <div className="">
-          <span className="text-5xl dark:text-secondary not-dark:text-primary font-extrabold animate-pulse">
-            VENTO
-          </span>
-        </div>
-        <div>
-          <div className="md:flex lg:flex hidden md:gap-5 gap-2 not-dark:text-white my-10">
-            <Link
-              to={"/"}
-              className="not-dark:text-base-200 dark:text-primary dark:bg-secondary not-dark:bg-primary rounded-xl text-black font-semibold md:px-5 md:py-2 py-1 px-3 text-xs md:text-base"
-            >
-              Home
-            </Link>
-            <Link
-              to={"/all_models"}
-              className="not-dark:text-base-200 dark:text-primary dark:bg-secondary not-dark:bg-primary rounded-xl text-black font-semibold md:px-5 md:py-2 py-1 px-3 text-xs md:text-base"
-            >
-              All Models
-            </Link>
-            <Link
-              to={"/add_models"}
-              className="not-dark:text-base-200 dark:text-primary dark:bg-secondary not-dark:bg-primary rounded-xl text-black font-semibold md:px-5 md:py-2 py-1 px-3 text-xs md:text-base"
-            >
-              Add Model
-            </Link>
-          </div>
-          <div className="md:hidden lg:hidden flex my-10">
-            <details className="dropdown">
-              <summary className="btn dark:bg-secondary dark:text-primary not-dark:text-base-300 not-dark:bg-primary m-1 rounded-xl">
-                Workspace
-              </summary>
-              <ul className="menu dropdown-content dark:bg-base-300 dark:text-primary not-dark:bg-primary rounded-box z-1 w-35 gap-3 p-3 shadow-sm">
-                <li>
-                  <Link className="dark:text-primary not-dark:text-primary not-dark:bg-base-300 dark:bg-secondary font-semibold md:px-5 md:py-2 py-1 px-3 text-xs md:text-base">
-                    Home
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to={"/all_models"}
-                    className="dark:text-primary not-dark:text-primary not-dark:bg-base-300 dark:bg-secondary font-semibold md:px-5 md:py-2 py-1 px-3 text-xs md:text-base"
-                  >
-                    View Models
-                  </Link>
-                </li>
-                <li>
-                  <Link
-                    to={"/add_models"}
-                    className="dark:text-primary not-dark:text-primary not-dark:bg-base-300 dark:bg-secondary font-semibold md:px-5 md:py-2 py-1 px-3 text-xs md:text-base"
-                  >
-                    Add Model
-                  </Link>
-                </li>
-              </ul>
-            </details>
-          </div>
-        </div>
-        <div className="">
-          {user ? (
-            <div className="dropdown dropdown-end">
-              <div
-                tabIndex={0}
-                role="button"
-                className="btn w-10 btn-ghost btn-circle avatar"
+    <div className="sticky top-0 z-50 w-full px-4 pt-4">
+      <div className="mx-auto max-w-7xl glass-effect rounded-[2rem] px-6 py-3">
+        <div className="flex justify-between items-center">
+          {/* Logo */}
+          <Link to="/" className="flex items-center gap-2">
+            <span className="text-3xl font-black gradient-text tracking-tighter">
+              VENTO
+            </span>
+          </Link>
+
+          {/* Desktop Nav */}
+          <nav className="hidden md:flex items-center gap-2">
+            {navLinks.map((link) => (
+              <NavLink
+                key={link.path}
+                to={link.path}
+                className={({ isActive }) =>
+                  `px-5 py-2 rounded-xl text-sm font-bold transition-all ${
+                    isActive
+                      ? "bg-primary text-white shadow-lg shadow-primary/20"
+                      : "hover:bg-primary/10 text-gray-600 dark:text-gray-300"
+                  }`
+                }
               >
-                <div className="w-10 rounded-full">
+                {link.name}
+              </NavLink>
+            ))}
+          </nav>
+
+          {/* User Actions */}
+          <div className="flex items-center gap-4">
+            {user ? (
+              <div className="dropdown dropdown-end">
+                <div
+                  tabIndex={0}
+                  role="button"
+                  className="btn btn-ghost btn-circle avatar ring-2 ring-primary/20 ring-offset-2 ring-offset-transparent overflow-hidden"
+                >
                   <img
-                    src={
-                      user?.photoURL ||
-                      "https://images.unsplash.com/photo-1511367461989-f85a21fda167?ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cHJvZmlsZXxlbnwwfHwwfHx8MA%3D%3D&fm=jpg&q=60&w=3000"
-                    }
+                    alt="User Portrait"
+                    src={user?.photoURL || "https://images.unsplash.com/photo-1511367461989-f85a21fda167?ixlib=rb-4.1.0&q=60&w=100"}
                   />
                 </div>
+                <ul
+                  tabIndex={0}
+                  className="mt-3 z-[1] p-3 shadow-2xl menu menu-sm dropdown-content glass-effect rounded-3xl w-64 gap-2 border border-white/10"
+                >
+                  <li className="bg-primary/10 text-primary dark:text-secondary rounded-2xl p-3 mb-2">
+                    <p className="font-bold">{user?.displayName || "Member"}</p>
+                    <p className="text-xs opacity-70 truncate">{user.email}</p>
+                  </li>
+                  <li>
+                    <Link to="/my_purchased_models" className="py-2.5 font-semibold hover:bg-primary/10 rounded-xl transition-colors">Purchased Models</Link>
+                  </li>
+                  <li>
+                    <Link to="/my_models" className="py-2.5 font-semibold hover:bg-primary/10 rounded-xl transition-colors">My Asset List</Link>
+                  </li>
+                  <div className="divider my-0 opacity-10"></div>
+                  <li>
+                    <button 
+                      onClick={logOutHandler}
+                      className="py-2.5 font-bold text-red-500 hover:bg-red-500/10 rounded-xl transition-colors"
+                    >
+                      Logout Session
+                    </button>
+                  </li>
+                </ul>
               </div>
-              <ul
-                tabIndex="-1"
-                className="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 min-w-65 p-2 shadow"
-              >
-                <li className="dark:bg-secondary dark:text-primary not-dark:bg-primary not-dark:text-base-300 rounded-2xl p-1">
-                  <p className="text-sm font-semibold">
-                    User : {user?.displayName || "Name"}
-                  </p>
-                  <p className="text-sm font-semibold">Email : {user.email}</p>
-                </li>
-                <li></li>
-                <li>
-                  <Link to={"/my_purchased_models"} className="font-bold">
-                    My Models Purchase Page
-                  </Link>
-                </li>
-                <li>
-                  <Link to={"/my_models"} className="font-bold">
-                    My Models Page
-                  </Link>
-                </li>
-                <li>
-                  <p
-                    onClick={logOutHandler}
-                    className="text-base-300 font-bold not-dark:bg-primary not-dark:text-base-300 dark:bg-secondary dark:text-primary rounded-xl"
-                  >
-                    Log Out
-                  </p>
-                </li>
-              </ul>
-            </div>
-          ) : (
-            <div className="flex flex-col md:flex-row lg:flex-row">
+            ) : (
               <Link
-                to={"/login"}
-                className="not-dark:text-primary dark:text-secondary hover:underline rounded-xl transition duration-300 mr-2 font-semibold md:px-5 md:py-2 py-1 px-3 text-xs md:text-base"
+                to="/login"
+                className="px-8 py-2.5 bg-primary text-white text-sm font-bold rounded-xl shadow-lg shadow-primary/20 hover:scale-105 transition-transform"
               >
                 Login
               </Link>
+            )}
+
+            {/* Mobile Nav */}
+            <div className="md:hidden dropdown dropdown-end">
+              <label tabIndex={0} className="btn btn-ghost btn-circle">
+                <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h16M4 18h7" />
+                </svg>
+              </label>
+              <ul tabIndex={0} className="menu menu-sm dropdown-content mt-3 z-[1] p-4 shadow-2xl glass-effect rounded-3xl w-52 gap-4">
+                {navLinks.map((link) => (
+                  <li key={link.path}>
+                    <Link to={link.path} className="font-bold">{link.name}</Link>
+                  </li>
+                ))}
+              </ul>
             </div>
-          )}
+          </div>
         </div>
       </div>
     </div>
@@ -152,3 +140,4 @@ const Navbar = () => {
 };
 
 export default Navbar;
+

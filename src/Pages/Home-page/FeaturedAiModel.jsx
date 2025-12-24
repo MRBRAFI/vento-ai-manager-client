@@ -1,50 +1,73 @@
 import React from "react";
-import { Autoplay, Navigation, Pagination } from "swiper/modules";
+import { Autoplay, Pagination } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import AiModelCard from "./AiModelCard";
 import { Link } from "react-router";
+import { motion } from "framer-motion";
 
 const FeaturedAiModel = ({ data }) => {
   const firstThree = Array.isArray(data) ? data.slice(0, 3) : [];
   const secondThree = Array.isArray(data) ? data.slice(3, 6) : [];
 
   return (
-    <section className="my-20 w-11/12 mx-auto">
-      <h2 className="text-3xl md:text-4xl font-bold text-center mb-10 dark:text-secondary not-dark:text-primary">
-        Featured AI Models
-      </h2>
+    <section className="py-24 w-11/12 mx-auto">
+      <div className="flex flex-col md:flex-row items-end justify-between mb-16 gap-6">
+        <div className="max-w-2xl">
+          <motion.h2 
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            className="text-4xl md:text-5xl font-black mb-6"
+          >
+            Explore <span className="gradient-text">Top-Tier</span> AI Models
+          </motion.h2>
+          <motion.p 
+             initial={{ opacity: 0, x: -20 }}
+             whileInView={{ opacity: 1, x: 0 }}
+             viewport={{ once: true }}
+             transition={{ delay: 0.2 }}
+             className="text-lg text-gray-600 dark:text-gray-400"
+          >
+            Discover the most powerful and efficient models in our inventory. Hand-picked for performance and accuracy.
+          </motion.p>
+        </div>
+        <Link 
+          to="/all_models" 
+          className="px-8 py-3 rounded-2xl border-2 border-primary/20 hover:border-primary hover:bg-primary hover:text-white transition-all font-bold"
+        >
+          View All Models
+        </Link>
+      </div>
+
       <Swiper
-        modules={[Autoplay]}
-        speed={2500}
-        autoplay={{ delay: 4500 }}
+        modules={[Autoplay, Pagination]}
+        autoplay={{ delay: 5000 }}
+        pagination={{ clickable: true }}
         loop={true}
-        spaceBetween={20}
+        spaceBetween={30}
         slidesPerView={1}
-        freeMode={true}
-        className="rounded-2xl h-50 flex items-center justify-center"
+        className="pb-16"
       >
         <SwiperSlide>
-          <div className="grid md:grid-cols-3 gap-8 mb-12">
+          <div className="grid md:grid-cols-3 gap-8">
             {firstThree.map((item) => (
               <AiModelCard key={item._id} item={item} />
             ))}
           </div>
         </SwiperSlide>
-        <SwiperSlide>
-          <div className="grid md:grid-cols-3 gap-8 mb-12">
-            {secondThree.map((item) => (
-              <AiModelCard key={item._id} item={item} />
-            ))}
-          </div>
-        </SwiperSlide>
+        {secondThree.length > 0 && (
+          <SwiperSlide>
+            <div className="grid md:grid-cols-3 gap-8">
+              {secondThree.map((item) => (
+                <AiModelCard key={item._id} item={item} />
+              ))}
+            </div>
+          </SwiperSlide>
+        )}
       </Swiper>
-      <div className="text-3xl font-bold w-full text-center not-dark:text-primary dark:text-secondary">
-        <Link to={"/all_models"} className="hover:animate-pulse">
-          See more
-        </Link>
-      </div>
     </section>
   );
 };
 
 export default FeaturedAiModel;
+

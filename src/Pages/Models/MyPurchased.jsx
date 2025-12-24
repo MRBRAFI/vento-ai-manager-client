@@ -2,15 +2,13 @@ import React, { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../../Provider/AuthProvider";
 import { Link } from "react-router";
 import Loader from "../Home-page/Loading";
+import { motion, AnimatePresence } from "framer-motion";
+import { FaBoxOpen, FaExternalLinkAlt, FaRobot } from "react-icons/fa";
 
 const MyPurchasedModels = () => {
   const { user } = useContext(AuthContext);
   const [purchasedModels, setPurchasedModels] = useState([]);
   const [loading, setLoading] = useState(true);
-
-  const userPurchases = purchasedModels.filter(
-    (data) => user.email === data.purchasedBy
-  );
 
   useEffect(() => {
     if (!user?.email) return;
@@ -32,118 +30,102 @@ const MyPurchasedModels = () => {
   if (loading) return <Loader />;
 
   return (
-    <div className="lg:w-11/12 mx-auto my-10 rounded-2xl p-4 md:p-6 shadow-xl dark:bg-base-200 not-dark:bg-base-300 min-h-screen">
-      <h2 className="text-2xl md:text-3xl font-bold text-center dark:bg-base-200 not-dark:bg-base-200 dark:text-secondary not-dark:text-primary py-5 mb-6 rounded-t-xl">
-        My Purchased AI Models
-      </h2>
+    <div className="min-h-screen mesh-gradient py-12 md:py-20">
+      <div className="w-11/12 max-w-7xl mx-auto">
+        <motion.div 
+          initial={{ opacity: 0, y: -20 }}
+          animate={{ opacity: 1, y: 0 }}
+          className="text-center mb-16"
+        >
+          <h1 className="text-4xl md:text-6xl font-black mb-6">
+            My <span className="gradient-text">Neural</span> Assets
+          </h1>
+          <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto text-lg leading-relaxed">
+            Manage and access all the premium AI models you've acquired. Your personal library of machine intelligence.
+          </p>
+        </motion.div>
 
-      {userPurchases.length === 0 ? (
-        <p className="text-center text-lg dark:text-white not-dark:text-primary">
-          You haven’t purchased any models yet.
-        </p>
-      ) : (
-        <>
-          {/* Table for md and above */}
-          <div className="hidden md:block overflow-x-auto">
-            <table className="table w-full">
-              <thead className="not-dark:bg-base-200 dark:bg-base-300 dark:text-secondary not-dark:text-primary text-sm uppercase">
-                <tr>
-                  <th>#</th>
-                  <th>Image</th>
-                  <th>Model Name</th>
-                  <th>Framework</th>
-                  <th>Use Case</th>
-                  <th>Created By</th>
-                  <th>Purchased By</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody>
-                {userPurchases.map((item, index) => (
-                  <tr
-                    key={item._id}
-                    className="hover:bg-base-100 transition duration-200"
-                  >
-                    <td className="font-medium">{index + 1}</td>
-                    <td>
-                      <div className="avatar">
-                        <div className="mask mask-squircle w-12 h-12">
-                          <img
-                            src={item.image}
-                            alt={item.name}
-                            className="object-cover"
-                          />
-                        </div>
-                      </div>
-                    </td>
-                    <td className="font-semibold">{item.name}</td>
-                    <td>{item.frameworl}</td>
-                    <td>{item.useCase}</td>
-                    <td className="text-sm opacity-70">{item.createdBy}</td>
-                    <td className="text-sm opacity-70">{item.purchasedBy}</td>
-                    <td>
-                      <div className="flex gap-2">
-                        <Link to={`/model_details/${item.modelId}`}>
-                          <button className="btn dark:bg-secondary not-dark:bg-primary not-dark:text-base-200 dark:text-primary rounded-xl">
-                            View Details
-                          </button>
-                        </Link>
-                      </div>
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
-
-          {/* Card layout for small screens (< md) */}
-          <div className="flex flex-col gap-4 md:hidden">
-            {userPurchases.map((item, index) => (
-              <div
-                key={item._id}
-                className="flex flex-col bg-base-200 dark:bg-base-300 rounded-xl shadow-md p-4"
-              >
-                <div className="flex justify-between items-center mb-3">
-                  <span className="font-semibold">{index + 1}.</span>
-                  <div className="avatar w-12 h-12">
-                    <div className="mask mask-squircle w-12 h-12">
-                      <img
-                        src={item.image}
-                        alt={item.name}
-                        className="object-cover"
-                      />
+        {purchasedModels.length === 0 ? (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            className="glass-effect rounded-[3rem] p-12 md:p-24 text-center"
+          >
+            <div className="w-24 h-24 bg-primary/10 rounded-3xl flex items-center justify-center mx-auto mb-8">
+              <FaBoxOpen className="text-4xl text-primary" />
+            </div>
+            <h2 className="text-3xl font-bold mb-4">No Models Found</h2>
+            <p className="text-gray-600 dark:text-gray-400 mb-10 max-w-md mx-auto">
+              Your inventory is currently empty. Explore the marketplace to find the perfect AI for your project.
+            </p>
+            <Link
+              to="/all_models"
+              className="px-8 py-4 bg-primary text-white font-bold rounded-2xl shadow-xl hover:-translate-y-1 transition-all inline-block"
+            >
+              Browse Marketplace
+            </Link>
+          </motion.div>
+        ) : (
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <AnimatePresence>
+              {purchasedModels.map((item, index) => (
+                <motion.div
+                  key={item._id}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: index * 0.1 }}
+                  whileHover={{ y: -10 }}
+                  className="glass-effect rounded-[2.5rem] overflow-hidden group flex flex-col"
+                >
+                  <div className="relative h-56 overflow-hidden">
+                    <img
+                      src={item.image}
+                      alt={item.name}
+                      className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent"></div>
+                    <div className="absolute bottom-6 left-6 right-6">
+                      <span className="px-3 py-1 rounded-full text-xs font-bold bg-secondary text-primary uppercase tracking-widest">
+                        {item.frameworl || "AI Model"}
+                      </span>
                     </div>
                   </div>
-                </div>
-                <p>
-                  <span className="font-semibold">Model Name:</span> {item.name}
-                </p>
-                <p>
-                  <span className="font-semibold">Framework:</span>{" "}
-                  {item.frameworl}
-                </p>
-                <p>
-                  <span className="font-semibold">Use Case:</span>{" "}
-                  {item.useCase}
-                </p>
-                <p>
-                  <span className="font-semibold">Purchased By:</span>{" "}
-                  {item.purchasedBy}
-                </p>
-                <div className="mt-3">
-                  <Link to={`/model_details/${item.modelId}`}>
-                    <button className="btn dark:bg-secondary not-dark:bg-primary not-dark:text-base-200 dark:text-primary rounded-xl w-full">
-                      View Details
-                    </button>
-                  </Link>
-                </div>
-              </div>
-            ))}
+
+                  <div className="p-8 flex flex-col flex-grow">
+                    <h2 className="text-2xl font-bold mb-3 group-hover:text-primary dark:group-hover:text-secondary transition-colors">
+                      {item.name}
+                    </h2>
+                    <p className="text-gray-600 dark:text-gray-400 text-sm leading-relaxed mb-6 line-clamp-2">
+                       {item.useCase || "Standard production-ready AI model optimized for deployment."}
+                    </p>
+                    
+                    <div className="mt-auto pt-6 border-t border-primary/10 flex items-center justify-between">
+                      <div className="flex items-center gap-3">
+                        <div className="w-10 h-10 rounded-full bg-primary/20 flex items-center justify-center text-primary">
+                          <FaRobot />
+                        </div>
+                        <div className="text-xs">
+                          <p className="text-gray-400 uppercase font-bold tracking-tighter">Owner Access</p>
+                          <p className="font-bold truncate max-w-[120px]">{user.displayName || "Authorized"}</p>
+                        </div>
+                      </div>
+                      <Link 
+                        to={`/model_details/${item.modelId}`}
+                        className="w-12 h-12 glass-effect flex items-center justify-center rounded-2xl text-primary hover:bg-primary hover:text-white transition-all"
+                      >
+                        <FaExternalLinkAlt />
+                      </Link>
+                    </div>
+                  </div>
+                </motion.div>
+              ))}
+            </AnimatePresence>
           </div>
-        </>
-      )}
+        )}
+      </div>
     </div>
   );
 };
 
 export default MyPurchasedModels;
+
