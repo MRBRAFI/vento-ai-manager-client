@@ -12,37 +12,38 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 
-  /* Color variables - Modern Tech Palette */
-  --color-primary: #6366f1; /* Electric Indigo */
-  --color-primary-light: #818cf8;
-  --color-secondary: #06b6d4; /* Vivid Cyan */
-  --color-secondary-dark: #0891b2;
+  /* Color variables - Industrial Amber Palette */
+  --color-primary: #ea580c; /* Orange 600 - Bold and Deep */
+  --color-primary-light: #fb923c; /* Orange 400 */
+  --color-secondary: #0f172a; /* Slate 900 (Black-ish) - High contrast */
+  --color-secondary-dark: #020617; /* Pure Black */
   --color-base-100: #ffffff;
-  --color-base-200: #f8fafc;
-  --color-base-300: #f1f5f9;
-  --color-text: #0f172a;
+  --color-base-200: #f1f5f9;
+  --color-base-300: #e2e8f0;
+  --color-text: #020617; /* Almost Black */
   --color-background: #ffffff;
 
-  /* Glassmorphism */
-  --glass-bg: rgba(255, 255, 255, 0.7);
-  --glass-border: rgba(99, 102, 241, 0.1);
-  --glass-shadow: 0 8px 32px 0 rgba(99, 102, 241, 0.05);
+  /* Glassmorphism - Warmer tint */
+  --glass-bg: rgba(255, 255, 255, 0.75);
+  --glass-border: rgba(234, 88, 12, 0.15);
+  --glass-shadow: 0 8px 32px 0 rgba(234, 88, 12, 0.08);
 }
 
-/* Dark mode */
+/* Dark mode - True Black & Neon Orange */
 @media (prefers-color-scheme: dark) {
   :root {
-    --color-primary: #818cf8;
-    --color-secondary: #22d3ee;
-    --color-base-100: #020617;
-    --color-base-200: #0f172a;
-    --color-base-300: #1e293b;
-    --color-text: #f8fafc;
-    --color-background: #020617;
+    --color-primary: #f97316; /* Orange 500 - Neon Glow */
+    --color-primary-light: #fdba74;
+    --color-secondary: #ffffff; /* White accents on black */
+    --color-base-100: #000000; /* Pure Black */
+    --color-base-200: #0a0a0a; /* Almost Black (Zinc 950) */
+    --color-base-300: #18181b; /* Zinc 900 */
+    --color-text: #fafafa;
+    --color-background: #000000;
 
-    --glass-bg: rgba(15, 23, 42, 0.7);
-    --glass-border: rgba(255, 255, 255, 0.05);
-    --glass-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.4);
+    --glass-bg: rgba(10, 10, 10, 0.8);
+    --glass-border: rgba(249, 115, 22, 0.2);
+    --glass-shadow: 0 8px 32px 0 rgba(249, 115, 22, 0.15);
   }
 }
 
@@ -66,7 +67,7 @@ body {
 }
 
 .gradient-text {
-  background: linear-gradient(135deg, var(--color-primary), var(--color-secondary), var(--color-primary-light));
+  background: linear-gradient(135deg, var(--color-primary), #fbbf24, #ef4444);
   background-size: 200% auto;
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
