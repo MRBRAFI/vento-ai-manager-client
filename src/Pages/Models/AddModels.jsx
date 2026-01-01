@@ -3,6 +3,8 @@ import { Navigate, useNavigate } from "react-router";
 import { AuthContext } from "../../Provider/AuthProvider";
 import { toast } from "react-toastify";
 import Loader from "../Home-page/Loading";
+import { motion } from "framer-motion";
+
 const AddModelPage = () => {
   const navigate = useNavigate();
   const { user, setLoading } = use(AuthContext);
@@ -29,12 +31,12 @@ const AddModelPage = () => {
     setIsSubmitting(true);
 
     const modelData = {
-      name: e.target.name.value,
-      frameworl: e.target.framework.value,
-      useCase: e.target.useCase.value,
-      dataset: e.target.dataset.value,
-      description: e.target.description.value,
-      image: e.target.image.value,
+      name: formData.name,
+      frameworl: formData.framework,
+      useCase: formData.useCase,
+      dataset: formData.dataset,
+      description: formData.description,
+      image: formData.image,
       createdAt: new Date(),
       createdBy: user.email,
       purchased: 0,
@@ -42,142 +44,130 @@ const AddModelPage = () => {
 
     fetch("https://vento-ai-management-server.vercel.app/models", {
       method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
+      headers: { "Content-Type": "application/json" },
       body: JSON.stringify(modelData),
     })
-      .then((res) => {
-        res.json();
-      })
-      .then((data) => {
-        toast.success("Your data has been stored successfully");
+      .then((res) => res.json())
+      .then(() => {
+        toast.success("Model added successfully!");
         navigate("/all_models");
-        setLoading(false);
-        setIsSubmitting(false);
       })
-      .catch((iss) => {
+      .catch(() => {
+        toast.error("Failed to add model");
+      })
+      .finally(() => {
         setLoading(false);
         setIsSubmitting(false);
       });
   };
 
-  if (isSubmitting) {
-    return <Loader />;
-  }
+  if (isSubmitting) return <Loader />;
 
   return (
-    <div className="min-h-screen my-15 mx-5 flex items-center justify-center px-4">
-      <div className="bg-base-300 dark:bg-base-200 p-8 rounded-xl shadow-lg max-w-2xl w-full">
-        <h1 className="text-2xl md:text-3xl font-bold mb-6 not-dark:text-primary dark:text-secondary text-center">
-          Add New AI Model
-        </h1>
+    <div className="min-h-screen py-20 px-4 bg-base-100 flex justify-center">
+      <motion.div 
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        className="max-w-3xl w-full"
+      >
+        <div className="text-center mb-10">
+            <h1 className="text-4xl font-black mb-4 gradient-text">Add New Model</h1>
+            <p className="opacity-60 max-w-lg mx-auto">Expand your inventory by registering a new neural network asset to the Vento ecosystem.</p>
+        </div>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label className="block mb-1 text-text" htmlFor="name">
-              Model Name
-            </label>
-            <input
-              name="name"
-              id="name"
-              type="text"
-              value={formData.name}
-              onChange={handleChange}
-              placeholder="e.g. BERT, ResNet-50"
-              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
-              required
-            />
-          </div>
+        <div className="glass-effect rounded-[2.5rem] p-8 md:p-12 border border-white/10 shadow-2xl relative overflow-hidden">
+             
+             {/* Background glow */}
+             <div className="absolute top-0 right-0 w-96 h-96 bg-primary/5 rounded-full blur-[100px] pointer-events-none"></div>
 
-          <div>
-            <label className="block mb-1 text-text" htmlFor="framework">
-              Framework
-            </label>
-            <input
-              name="framework"
-              id="framework"
-              type="text"
-              value={formData.framework}
-              onChange={handleChange}
-              placeholder="TensorFlow, PyTorch…"
-              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
-              required
-            />
-          </div>
+             <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-6 relative z-10">
+                 
+                 <div className="space-y-2 md:col-span-2">
+                    <label className="text-xs font-bold uppercase tracking-wider opacity-70 ml-1">Model Name</label>
+                    <input
+                        name="name"
+                        value={formData.name}
+                        onChange={handleChange}
+                        placeholder="e.g. GPT-4, ResNet-101"
+                        className="w-full px-5 py-3 rounded-xl bg-base-200/50 border border-transparent focus:border-primary/50 focus:bg-white focus:outline-none transition-all"
+                        required
+                    />
+                 </div>
 
-          <div>
-            <label className="block mb-1 text-text" htmlFor="useCase">
-              Use Case
-            </label>
-            <input
-              name="useCase"
-              id="useCase"
-              type="text"
-              value={formData.useCase}
-              onChange={handleChange}
-              placeholder="NLP, Computer Vision…"
-              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
-              required
-            />
-          </div>
+                 <div className="space-y-2">
+                    <label className="text-xs font-bold uppercase tracking-wider opacity-70 ml-1">Framework</label>
+                    <input
+                        name="framework"
+                        value={formData.framework}
+                        onChange={handleChange}
+                        placeholder="PyTorch, TensorFlow"
+                        className="w-full px-5 py-3 rounded-xl bg-base-200/50 border border-transparent focus:border-primary/50 focus:bg-white focus:outline-none transition-all"
+                        required
+                    />
+                 </div>
 
-          <div>
-            <label className="block mb-1 text-text" htmlFor="dataset">
-              Dataset Used
-            </label>
-            <input
-              name="dataset"
-              id="dataset"
-              type="text"
-              value={formData.dataset}
-              onChange={handleChange}
-              placeholder="ImageNet, COCO, Wikipedia…"
-              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
-              required
-            />
-          </div>
+                 <div className="space-y-2">
+                    <label className="text-xs font-bold uppercase tracking-wider opacity-70 ml-1">Use Case</label>
+                    <input
+                        name="useCase"
+                        value={formData.useCase}
+                        onChange={handleChange}
+                        placeholder="NLP, Computer Vision"
+                        className="w-full px-5 py-3 rounded-xl bg-base-200/50 border border-transparent focus:border-primary/50 focus:bg-white focus:outline-none transition-all"
+                        required
+                    />
+                 </div>
 
-          <div>
-            <label className="block mb-1 text-text" htmlFor="description">
-              Description
-            </label>
-            <textarea
-              name="description"
-              id="description"
-              value={formData.description}
-              onChange={handleChange}
-              placeholder="Briefly describe the model…"
-              rows="3"
-              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
-              required
-            ></textarea>
-          </div>
+                 <div className="space-y-2 md:col-span-2">
+                    <label className="text-xs font-bold uppercase tracking-wider opacity-70 ml-1">Dataset</label>
+                    <input
+                        name="dataset"
+                        value={formData.dataset}
+                        onChange={handleChange}
+                        placeholder="e.g. ImageNet, CommonCrawl"
+                        className="w-full px-5 py-3 rounded-xl bg-base-200/50 border border-transparent focus:border-primary/50 focus:bg-white focus:outline-none transition-all"
+                        required
+                    />
+                 </div>
 
-          <div>
-            <label className="block mb-1 text-text" htmlFor="image">
-              Model Image (URL)
-            </label>
-            <input
-              name="image"
-              id="image"
-              type="url"
-              value={formData.image}
-              onChange={handleChange}
-              placeholder="Paste ImgBB link here"
-              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
-              required
-            />
-          </div>
+                 <div className="space-y-2 md:col-span-2">
+                    <label className="text-xs font-bold uppercase tracking-wider opacity-70 ml-1">Image URL</label>
+                    <input
+                        name="image"
+                        type="url"
+                        value={formData.image}
+                        onChange={handleChange}
+                        placeholder="https://example.com/image.jpg"
+                        className="w-full px-5 py-3 rounded-xl bg-base-200/50 border border-transparent focus:border-primary/50 focus:bg-white focus:outline-none transition-all"
+                        required
+                    />
+                 </div>
 
-          <button
-            type="submit"
-            className="btn dark:bg-secondary not-dark:bg-primary not-dark:text-base-200 dark:text-primary w-full py-2 mt-4 font-semibold"
-          >
-            Add Model
-          </button>
-        </form>
-      </div>
+                 <div className="space-y-2 md:col-span-2">
+                    <label className="text-xs font-bold uppercase tracking-wider opacity-70 ml-1">Description</label>
+                    <textarea
+                        name="description"
+                        value={formData.description}
+                        onChange={handleChange}
+                        placeholder="Provide details about architecture, parameters, and performance..."
+                        rows="4"
+                        className="w-full px-5 py-3 rounded-xl bg-base-200/50 border border-transparent focus:border-primary/50 focus:bg-white focus:outline-none transition-all resize-none"
+                        required
+                    ></textarea>
+                 </div>
+
+                 <div className="md:col-span-2 pt-4">
+                    <button
+                        type="submit"
+                        className="w-full py-4 bg-primary text-white font-bold rounded-2xl shadow-xl shadow-primary/20 hover:scale-[1.01] transition-transform"
+                    >
+                        Register Asset
+                    </button>
+                 </div>
+
+             </form>
+        </div>
+      </motion.div>
     </div>
   );
 };

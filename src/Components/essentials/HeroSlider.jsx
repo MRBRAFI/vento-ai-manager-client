@@ -23,7 +23,7 @@ const HeroSlider = () => {
   ];
 
   return (
-    <div className="w-11/12 mx-auto relative group z-10">
+    <div className="w-11/12 max-w-7xl mx-auto relative group z-10">
       <Swiper
         modules={[Navigation, Pagination, Autoplay, EffectFade]}
         effect="fade"

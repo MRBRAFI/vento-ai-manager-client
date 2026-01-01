@@ -10,7 +10,7 @@ const FeaturedAiModel = ({ data }) => {
   const secondThree = Array.isArray(data) ? data.slice(3, 6) : [];
 
   return (
-    <section className="py-24 w-11/12 mx-auto">
+    <section className="py-24 w-11/12 max-w-7xl mx-auto">
       <div className="flex flex-col md:flex-row items-end justify-between mb-16 gap-6">
         <div className="max-w-2xl">
           <motion.h2 

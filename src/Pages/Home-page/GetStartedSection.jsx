@@ -7,7 +7,7 @@ const GetStartedSection = () => {
   const { user } = use(AuthContext);
   
   return (
-    <section className="w-11/12 mx-auto py-24">
+    <section className="w-11/12 max-w-7xl mx-auto py-24">
       <motion.div 
         initial={{ opacity: 0, scale: 0.95 }}
         whileInView={{ opacity: 1, scale: 1 }}

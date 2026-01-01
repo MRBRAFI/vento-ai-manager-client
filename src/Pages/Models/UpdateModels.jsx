@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useLoaderData, useLocation, useNavigate } from "react-router";
 import { toast } from "react-toastify";
 import Loader from "../Home-page/Loading";
+import { motion } from "framer-motion";
 
 const UpdateModels = () => {
   const data = useLoaderData();
@@ -28,15 +29,13 @@ const UpdateModels = () => {
       `https://vento-ai-management-server.vercel.app/models/${details._id}`,
       {
         method: "PUT",
-        headers: {
-          "Content-Type": "application/json",
-        },
+        headers: { "Content-Type": "application/json" },
         body: JSON.stringify(modelData),
       }
     )
       .then((res) => res.json())
       .then(() => {
-        toast.success("Your data has been updated successfully");
+        toast.success("Model updated successfully!");
         navigate(`${location.state ? location.state : "/"}`);
       })
       .catch(() => {
@@ -45,116 +44,114 @@ const UpdateModels = () => {
       .finally(() => setLoading(false));
   };
 
-  if (loading) {
-    return <Loader />;
-  }
+  if (loading) return <Loader />;
 
   return (
-    <div className="min-h-screen my-15 mx-5 flex items-center justify-center px-4">
-      <div className="bg-base-300 dark:bg-base-200 p-8 rounded-xl shadow-lg max-w-2xl w-full">
-        <h1 className="text-2xl md:text-3xl font-bold mb-6 not-dark:text-primary dark:text-secondary text-center">
-          Update Your AI Model
-        </h1>
+    <div className="min-h-screen py-20 px-4 bg-base-100 flex justify-center">
+      <motion.div 
+        initial={{ opacity: 0, scale: 0.95 }}
+        animate={{ opacity: 1, scale: 1 }}
+        className="max-w-3xl w-full"
+      >
+        <div className="text-center mb-10">
+            <h1 className="text-3xl md:text-4xl font-black mb-4 gradient-text">Update Asset</h1>
+            <p className="opacity-60 max-w-lg mx-auto">Modify the details of your neural network. Changes will be reflected immediately.</p>
+        </div>
 
-        <form onSubmit={handleSubmit} className="space-y-4">
-          <div>
-            <label className="block mb-1 text-text" htmlFor="name">
-              Model Name
-            </label>
-            <input
-              name="name"
-              id="name"
-              defaultValue={details.name}
-              type="text"
-              placeholder="e.g. BERT, ResNet-50"
-              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
-              required
-            />
-          </div>
+        <div className="glass-effect rounded-[2.5rem] p-8 md:p-12 border border-white/10 shadow-2xl relative overflow-hidden">
+             
+             {/* Background glow */}
+             <div className="absolute bottom-0 left-0 w-80 h-80 bg-secondary/10 rounded-full blur-[80px] pointer-events-none"></div>
 
-          <div>
-            <label className="block mb-1 text-text" htmlFor="framework">
-              Framework
-            </label>
-            <input
-              name="framework"
-              id="framework"
-              defaultValue={details.frameworl}
-              type="text"
-              placeholder="TensorFlow, PyTorch…"
-              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
-              required
-            />
-          </div>
+             <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-6 relative z-10">
+                 
+                 <div className="space-y-2 md:col-span-2">
+                    <label className="text-xs font-bold uppercase tracking-wider opacity-70 ml-1">Model Name</label>
+                    <input
+                        name="name"
+                        defaultValue={details.name}
+                        placeholder="e.g. BERT"
+                        className="w-full px-5 py-3 rounded-xl bg-base-200/50 border border-transparent focus:border-primary/50 focus:bg-white focus:outline-none transition-all"
+                        required
+                    />
+                 </div>
 
-          <div>
-            <label className="block mb-1 text-text" htmlFor="useCase">
-              Use Case
-            </label>
-            <input
-              name="useCase"
-              id="useCase"
-              defaultValue={details.useCase}
-              type="text"
-              placeholder="NLP, Computer Vision…"
-              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
-              required
-            />
-          </div>
+                 <div className="space-y-2">
+                    <label className="text-xs font-bold uppercase tracking-wider opacity-70 ml-1">Framework</label>
+                    <input
+                        name="framework"
+                        defaultValue={details.frameworl}
+                        placeholder="TensorFlow..."
+                        className="w-full px-5 py-3 rounded-xl bg-base-200/50 border border-transparent focus:border-primary/50 focus:bg-white focus:outline-none transition-all"
+                        required
+                    />
+                 </div>
 
-          <div>
-            <label className="block mb-1 text-text" htmlFor="dataset">
-              Dataset Used
-            </label>
-            <input
-              name="dataset"
-              id="dataset"
-              defaultValue={details.dataset}
-              type="text"
-              placeholder="ImageNet, COCO, Wikipedia…"
-              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
-              required
-            />
-          </div>
+                 <div className="space-y-2">
+                    <label className="text-xs font-bold uppercase tracking-wider opacity-70 ml-1">Use Case</label>
+                    <input
+                        name="useCase"
+                        defaultValue={details.useCase}
+                        placeholder="NLP..."
+                        className="w-full px-5 py-3 rounded-xl bg-base-200/50 border border-transparent focus:border-primary/50 focus:bg-white focus:outline-none transition-all"
+                        required
+                    />
+                 </div>
 
-          <div>
-            <label className="block mb-1 text-text" htmlFor="description">
-              Description
-            </label>
-            <textarea
-              name="description"
-              id="description"
-              defaultValue={details.description}
-              placeholder="Briefly describe the model…"
-              rows="3"
-              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
-              required
-            ></textarea>
-          </div>
+                 <div className="space-y-2 md:col-span-2">
+                    <label className="text-xs font-bold uppercase tracking-wider opacity-70 ml-1">Dataset</label>
+                    <input
+                        name="dataset"
+                        defaultValue={details.dataset}
+                        placeholder="ImageNet..."
+                        className="w-full px-5 py-3 rounded-xl bg-base-200/50 border border-transparent focus:border-primary/50 focus:bg-white focus:outline-none transition-all"
+                        required
+                    />
+                 </div>
 
-          <div>
-            <label className="block mb-1 text-text" htmlFor="image">
-              Model Image (URL)
-            </label>
-            <input
-              name="image"
-              id="image"
-              defaultValue={details.image}
-              type="url"
-              placeholder="Paste ImgBB link here"
-              className="w-full px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-primary"
-              required
-            />
-          </div>
+                 <div className="space-y-2 md:col-span-2">
+                    <label className="text-xs font-bold uppercase tracking-wider opacity-70 ml-1">Image URL</label>
+                    <input
+                        name="image"
+                        type="url"
+                        defaultValue={details.image}
+                        placeholder="https://..."
+                        className="w-full px-5 py-3 rounded-xl bg-base-200/50 border border-transparent focus:border-primary/50 focus:bg-white focus:outline-none transition-all"
+                        required
+                    />
+                 </div>
 
-          <button
-            type="submit"
-            className="btn dark:bg-secondary not-dark:bg-primary not-dark:text-base-200 dark:text-primary w-full py-2 mt-4 font-semibold"
-          >
-            Update Model
-          </button>
-        </form>
-      </div>
+                 <div className="space-y-2 md:col-span-2">
+                    <label className="text-xs font-bold uppercase tracking-wider opacity-70 ml-1">Description</label>
+                    <textarea
+                        name="description"
+                        defaultValue={details.description}
+                        placeholder="Description..."
+                        rows="4"
+                        className="w-full px-5 py-3 rounded-xl bg-base-200/50 border border-transparent focus:border-primary/50 focus:bg-white focus:outline-none transition-all resize-none"
+                        required
+                    ></textarea>
+                 </div>
+
+                 <div className="md:col-span-2 pt-4 flex gap-4">
+                    <button
+                        type="button"
+                        onClick={() => navigate(-1)}
+                        className="flex-1 py-4 bg-transparent border border-base-content/20 font-bold rounded-2xl hover:bg-base-200 transition-all text-sm"
+                    >
+                        Cancel
+                    </button>
+                    <button
+                        type="submit"
+                        className="flex-[2] py-4 bg-primary text-white font-bold rounded-2xl shadow-xl shadow-primary/20 hover:scale-[1.01] transition-transform"
+                    >
+                        Save Changes
+                    </button>
+                 </div>
+
+             </form>
+        </div>
+      </motion.div>
     </div>
   );
 };
