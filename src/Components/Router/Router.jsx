@@ -77,8 +77,6 @@ const router = createBrowserRouter(
         },
         {
           path: "/my_purchased_models",
-          loader: () =>
-            fetch("https://vento-ai-management-server.vercel.app/models"),
           element: (
             <PrivateRoute>
               <MyPurchased></MyPurchased>
