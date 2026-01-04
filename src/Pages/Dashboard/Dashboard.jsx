@@ -6,6 +6,7 @@ import { MdOutlineAddToPhotos } from "react-icons/md";
 import { PiCassetteTapeLight } from "react-icons/pi";
 import { SiOpenmediavault } from "react-icons/si";
 import { TbTransactionYen } from "react-icons/tb";
+import { IoAnalyticsOutline } from "react-icons/io5";
 import { Link, Outlet } from "react-router";
 
 const Dashboard = () => {
@@ -25,7 +26,9 @@ const Dashboard = () => {
               <SiOpenmediavault></SiOpenmediavault>
             </label>
             <div className="flex justify-between items-center w-full">
-              <div className="px-4">Navbar Title</div>
+              <div className="btn bg-primary px-4 text-xl font-bold text-white rounded-xl">
+                <Link to={"/dashboard"}>Vento</Link>
+              </div>
               <Link
                 to={"/"}
                 className="btn rounded-xl bg-primary text-white px-4"
@@ -86,6 +89,7 @@ const Dashboard = () => {
                   <span className="is-drawer-close:hidden">Add Asset</span>
                 </Link>
               </li>
+
               <li>
                 <Link
                   to={"profile"}

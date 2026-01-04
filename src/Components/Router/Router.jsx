@@ -17,6 +17,7 @@ import MyPurchasedModels from "../../Pages/Models/MyPurchased";
 import Profile from "../../Pages/Dashboard/Profile";
 import Contact from "../../Pages/Contact/Contact";
 import About from "../../Pages/About/About";
+import Analytics from "../../Pages/Dashboard/Analytics";
 
 const router = createBrowserRouter(
   [
@@ -117,6 +118,15 @@ const router = createBrowserRouter(
           element: (
             <PrivateRoute>
               <AddModelPage></AddModelPage>
+            </PrivateRoute>
+          ),
+        },
+        {
+          index: true,
+          path: "/dashboard",
+          element: (
+            <PrivateRoute>
+              <Analytics />
             </PrivateRoute>
           ),
         },
