@@ -12,6 +12,11 @@ import UpdateModels from "../../Pages/Models/UpdateModels";
 import MyModels from "../../Pages/Models/MyModels";
 import MyPurchased from "../../Pages/Models/MyPurchased";
 import Loader from "../../Pages/Home-page/Loading";
+import Dashboard from "../../Pages/Dashboard/Dashboard";
+import MyPurchasedModels from "../../Pages/Models/MyPurchased";
+import Profile from "../../Pages/Dashboard/Profile";
+import Contact from "../../Pages/Contact/Contact";
+import About from "../../Pages/About/About";
 
 const router = createBrowserRouter(
   [
@@ -41,6 +46,8 @@ const router = createBrowserRouter(
           ),
         },
         { path: "/all_models", element: <AllModels></AllModels> },
+        { path: "/contact", element: <Contact></Contact> },
+        { path: "/about", element: <About></About> },
         {
           path: "/model_details/:id",
           element: (
@@ -68,7 +75,37 @@ const router = createBrowserRouter(
           handle: { hydrateFallback: <Loader></Loader> },
         },
         {
-          path: "/my_models",
+          path: "/profile",
+          element: (
+            <PrivateRoute>
+              <Profile></Profile>
+            </PrivateRoute>
+          ),
+        },
+      ],
+    },
+    {
+      path: "/dashboard",
+      element: <Dashboard></Dashboard>,
+      children: [
+        {
+          path: "profile",
+          element: (
+            <PrivateRoute>
+              <Profile></Profile>
+            </PrivateRoute>
+          ),
+        },
+        {
+          path: "my_purchased_models_dashboard",
+          element: (
+            <PrivateRoute>
+              <MyPurchasedModels></MyPurchasedModels>
+            </PrivateRoute>
+          ),
+        },
+        {
+          path: "my_models_dashboard",
           element: (
             <PrivateRoute>
               <MyModels></MyModels>
@@ -76,10 +113,10 @@ const router = createBrowserRouter(
           ),
         },
         {
-          path: "/my_purchased_models",
+          path: "add_models_dashboard",
           element: (
             <PrivateRoute>
-              <MyPurchased></MyPurchased>
+              <AddModelPage></AddModelPage>
             </PrivateRoute>
           ),
         },

@@ -3,35 +3,60 @@ import { motion } from "framer-motion";
 
 const Loader = () => {
   return (
-    <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-base-100">
-      <div className="relative">
-        {/* Outer Ring */}
-        <motion.div 
-          animate={{ rotate: 360 }}
-          transition={{ duration: 1.5, repeat: Infinity, ease: "linear" }}
-          className="w-24 h-24 rounded-full border-4 border-primary/20 border-t-primary"
-        />
-        
-        {/* Inner Pulsing Circle */}
-        <motion.div 
-          animate={{ scale: [1, 1.2, 1], opacity: [0.3, 0.6, 0.3] }}
-          transition={{ duration: 2, repeat: Infinity }}
-          className="absolute inset-4 rounded-full bg-secondary"
+    <div className="fixed inset-0 z-[9999] flex flex-col items-center justify-center bg-base-100">
+      <div className="relative flex items-center justify-center">
+        {/* Core pulsing dot */}
+        <motion.div
+          animate={{ 
+            scale: [1, 1.2, 1],
+            opacity: [1, 0.8, 1]
+          }}
+          transition={{ 
+            duration: 2, 
+            repeat: Infinity, 
+            ease: "easeInOut" 
+          }}
+          className="w-4 h-4 rounded-full bg-primary shadow-[0_0_20px_rgba(234,88,12,0.8)] z-10"
         />
 
-        {/* Small Center Dot */}
-        <div className="absolute inset-[38px] rounded-full bg-primary shadow-lg shadow-primary/50" />
+        {/* Outer Ripple */}
+        <motion.div
+          animate={{ 
+            scale: [1, 4],
+            opacity: [0.8, 0]
+          }}
+          transition={{ 
+            duration: 2, 
+            repeat: Infinity, 
+            ease: "easeOut" 
+          }}
+          className="absolute w-4 h-4 rounded-full border-[1.5px] border-primary/60"
+        />
         
-        {/* Loading Text */}
-        <motion.p 
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.5 }}
-          className="absolute -bottom-12 left-1/2 -translate-x-1/2 font-black tracking-widest text-xs uppercase text-primary whitespace-nowrap"
-        >
-          Initializing Neural Assets
-        </motion.p>
+        {/* Second Ripple Delayed */}
+        <motion.div
+          animate={{ 
+            scale: [1, 4],
+            opacity: [0.8, 0]
+          }}
+          transition={{ 
+            duration: 2, 
+            repeat: Infinity, 
+            ease: "easeOut",
+            delay: 0.6
+          }}
+          className="absolute w-4 h-4 rounded-full border-[1.5px] border-primary/60"
+        />
       </div>
+
+      <motion.p
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 0.7 }}
+        transition={{ delay: 0.5, duration: 1 }}
+        className="mt-10 text-xs font-black tracking-[0.5em] text-base-content uppercase pl-2"
+      >
+        Vento
+      </motion.p>
     </div>
   );
 };

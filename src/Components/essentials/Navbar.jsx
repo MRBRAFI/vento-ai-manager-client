@@ -35,8 +35,10 @@ const Navbar = () => {
   const navLinks = [
     { name: "Home", path: "/" },
     { name: "All Models", path: "/all_models" },
-    { name: "Add Model", path: "/add_models" },
-  ];
+    user && { name: "Add Model", path: "/add_models" },
+    { name: "About Us", path: "/about" },
+    { name: "Contact Us", path: "/contact" },
+  ].filter(Boolean);
 
   return (
     <div className="sticky top-0 z-50 w-full px-4 pt-4">
@@ -95,18 +97,18 @@ const Navbar = () => {
                   </li>
                   <li>
                     <Link
-                      to="/my_purchased_models"
+                      to="/dashboard"
                       className="py-2.5 font-semibold hover:bg-primary/10 rounded-xl transition-colors"
                     >
-                      Purchased Models
+                      Dashboard{" "}
                     </Link>
                   </li>
                   <li>
                     <Link
-                      to="/my_models"
+                      to="/profile"
                       className="py-2.5 font-semibold hover:bg-primary/10 rounded-xl transition-colors"
                     >
-                      My Asset List
+                      Profile{" "}
                     </Link>
                   </li>
                   <div className="divider my-0 opacity-10"></div>
